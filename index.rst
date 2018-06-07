@@ -21,6 +21,8 @@ Welcome to Note's documentation!
    bashTips/详解Linux_bash中的变量
    temp/common-lisp
    temp/如何查看CommonLisp的标准函数
+   openvpn安装记录
+   将emacs作为服务启动
 
 Indices and tables
 ==================

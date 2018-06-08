@@ -40,11 +40,11 @@
 
    其中关键配置解释如下:
 
-   * --remote    指定peer-to-peer架构中, 对端的公网IP
-   * --dev       指定使用tun设备
-   * --ifconfig  指定虚拟隧道的本端和远端IP地址
-   * --secret    指定包含静态密码的文件
-   * --daemon    指定使用后台驻守进程的模式
+     * --remote    指定peer-to-peer架构中, 对端的公网IP
+     * --dev       指定使用tun设备
+     * --ifconfig  指定虚拟隧道的本端和远端IP地址
+     * --secret    指定包含静态密码的文件
+     * --daemon    指定使用后台驻守进程的模式
 
    创建隧道步骤完成后, 两台服务器之间的虚拟专用网络如下所示:
 

@@ -38,3 +38,19 @@ systemctl启动脚本 ::
 然后添加 ``alias e='emacsclient -nw'`` , 以后就可以直接使用 ``e [file]`` 编辑文件了;
 
 如果想开机启动的话, 就 ``systemctl enable emacsserver.service`` ;
+
+FAQ
+########################################
+
+#. *.emacs* 配置文件没有被加载:
+   像上面所说的进行配置, ``emacs --daemon`` 并不会加载我们的配置文件;
+   但是命令行中, 此命令是加载root的.emacs配置的;
+
+   使用 ``emacs --daemon --load /root/.emacs`` 或
+   ``emacs --daemon --user root`` 直接在命令行启动, 会正常加载root的 *.emacs* 配置文件;
+
+   解决方法(dirty-hack):
+
+     emacsclient [File]
+
+     M-x load-file <RET> ~/.emacs <RET>

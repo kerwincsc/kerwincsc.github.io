@@ -55,7 +55,7 @@ NAT转换后连接互连网;
       我分别填入 272299ca 和 kerwin-ca ; 以示和下面的操作的 Key Passphrase 作区分;
 
 
-   #. 生成 openvpn 服务器证书和私钥
+   #. 生成 openvpn 服务器证书和私钥并用 CA 证书签名
 
       #. ``./easyrsa build-server-full server-kerwin`` ::
 
@@ -79,7 +79,7 @@ NAT转换后连接互连网;
 
         这里指定了 *PEM pass phrase* (272299server) 并且用 CA.key 的 pass phrase 对其签名;
 
-   #. 生成 openvpn 客户端的证书和私钥
+   #. 生成 openvpn 客户端的证书和私钥并用 CA 证书签名
 
       #. ``./easyrsa build-client-full kerwin-client`` ::
 
@@ -142,3 +142,10 @@ NAT转换后连接互连网;
 	ifconfig-push 10.102.202.9 10.102.202.10    # 指定客户端的IP为10.102.202.9
         iroute 172.31.225.0 255.255.255.0           # 增加一条内部路由
         push "route 172.31.225.0 255.255.255.0"     # 把该路由推送到客户端执行
+
+
+.. note::
+   以下项目必须要一致: cipher, ca, dev, proto, comp-lzo
+
+   服务端配置 ``tls-auth <path>/ta.key 0`` 且客户端配置 ``tls-auth <path>./ta.key 1``
+   如果此项设置不匹配, 则会出现 **HMAC authentication failed**

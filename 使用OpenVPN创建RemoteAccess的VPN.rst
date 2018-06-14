@@ -32,76 +32,9 @@ NAT转换后连接互连网;
 
    #. 生成CA证书 ``./easyrsa build-ca`` , 将会在 pki 目录中生成文件 ca.crt ; ::
 
-	Enter New CA Key Passphrase: 
-	Re-Enter New CA Key Passphrase: 
-	Generating RSA private key, 2048 bit long modulus
-	...................................+++
-	.........................+++
-	e is 65537 (0x10001)
-	You are about to be asked to enter information that will be incorporated
-	into your certificate request.
-	What you are about to enter is what is called a Distinguished Name or a DN.
-	There are quite a few fields but you can leave some blank
-	For some fields there will be a default value,
-	If you enter '.', the field will be left blank.
-	-----
-	Common Name (eg: your user, host, or server name) [Easy-RSA CA]:kerwin-ca
-	
-	CA creation complete and you may now import and sign cert requests.
-	Your new CA certificate file for publishing is at:
-	/usr/local/src/easy-rsa-3.0.5/easyrsa3/pki/ca.crt
-
-      这一步中, 需要填写的信息是 **CA Key Passphrase** 和 **Common Name** ,
-      我分别填入 272299ca 和 kerwin-ca ; 以示和下面的操作的 Key Passphrase 作区分;
-
-
    #. 生成 openvpn 服务器证书和私钥并用 CA 证书签名
 
-      #. ``./easyrsa build-server-full server-kerwin`` ::
-
-	   Generating a 2048 bit RSA private key
-	   ..+++
-	   ....................+++
-	   writing new private key to '/usr/local/src/easy-rsa-3.0.5/easyrsa3/pki/private/server-kerwin.key.cC8yx0sutT'
-	   Enter PEM pass phrase:
-	   Verifying - Enter PEM pass phrase:
-	   -----
-	   Using configuration from ./openssl-easyrsa.cnf
-	   Enter pass phrase for /usr/local/src/easy-rsa-3.0.5/easyrsa3/pki/private/ca.key:
-	   Check that the request matches the signature
-	   Signature ok
-	   The Subject's Distinguished Name is as follows
-	   commonName            :ASN.1 12:'server-kerwin'
-	   Certificate is to be certified until Jun  8 08:21:20 2028 GMT (3650 days)
-	   
-	   Write out database with 1 new entries
-	   Data Base Updated
-
-        这里指定了 *PEM pass phrase* (272299server) 并且用 CA.key 的 pass phrase 对其签名;
-
    #. 生成 openvpn 客户端的证书和私钥并用 CA 证书签名
-
-      #. ``./easyrsa build-client-full kerwin-client`` ::
-
-	   Generating a 2048 bit RSA private key
-	   ............................+++
-	   .............................+++
-	   writing new private key to '/usr/local/src/easy-rsa-3.0.5/easyrsa3/pki/private/kerwin-client.key.MMTgE5fS0Q'
-	   Enter PEM pass phrase:
-	   Verifying - Enter PEM pass phrase:
-	   -----
-	   Using configuration from ./openssl-easyrsa.cnf
-	   Enter pass phrase for /usr/local/src/easy-rsa-3.0.5/easyrsa3/pki/private/ca.key:
-	   Check that the request matches the signature
-	   Signature ok
-	   The Subject's Distinguished Name is as follows
-	   commonName            :ASN.1 12:'kerwin-client'
-	   Certificate is to be certified until Jun  8 08:30:19 2028 GMT (3650 days)
-	   
-	   Write out database with 1 new entries
-	   Data Base Updated
-
-	 这里指定了 *PEM pass phrase* (272299client) 并且 CA.key 对其签名;
 
    #. 在 Server1上配置 OpenVPN , 配置文件为 server.conf , 内容如下 ::
 
@@ -142,7 +75,7 @@ NAT转换后连接互连网;
 	ifconfig-push 10.102.202.9 10.102.202.10    # 指定客户端的IP为10.102.202.9
         iroute 172.31.225.0 255.255.255.0           # 增加一条内部路由
         push "route 172.31.225.0 255.255.255.0"     # 把该路由推送到客户端执行
-
+        这里的配置我不太明白, 暂时忽略;
 
 .. note::
    以下项目必须要一致: cipher, ca, dev, proto, comp-lzo

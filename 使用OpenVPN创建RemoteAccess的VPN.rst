@@ -16,12 +16,14 @@ NAT转换后连接互连网;
 
 条件有限, 我只能用三台虚拟机来完成整个实验, 架构图如下:
 
-.. image:: RemoteAccessVPN.svg
+  暂未配图
+
+........ image:: RemoteAccessVPN.svg
 
 操作步骤
 ------------------------------------------------------------
 
-.. tips::
+.. tip::
    最新版本的 openvpn , 已经将 easy-rsa 单独做成一个项目了, 所以如果要使用
    脚本辅助生成和管理证书, 那么要再单独下载, 下载地址直接在 github 中搜索
    相关项目;
@@ -30,7 +32,7 @@ NAT转换后连接互连网;
 
    #. 初始化 ``./easy-rsa init-pki`` , 将会在当前目录自成 *pki* 目录;
 
-   #. 生成CA证书 ``./easyrsa build-ca`` , 将会在 pki 目录中生成文件 ca.crt ; ::
+   #. 生成CA证书 ``./easyrsa build-ca`` , 将会在 pki 目录中生成文件 ca.crt ;
 
    #. 生成 openvpn 服务器证书和私钥并用 CA 证书签名
 

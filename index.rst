@@ -33,6 +33,8 @@ Welcome to Note's documentation!
    sbcl/CAR和CDR
    sbcl/setq_setf区别
 
+   Kali持久加密USB安装
+
 Indices and tables
 ==================
 

@@ -32,6 +32,7 @@ Welcome to Note's documentation!
    sbcl/sbcl使用记录
    sbcl/CAR和CDR
    sbcl/setq_setf区别
+   sbcl/高阶LOOP
 
    Kali持久加密USB安装
 

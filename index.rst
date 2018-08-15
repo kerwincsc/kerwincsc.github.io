@@ -36,6 +36,8 @@ Welcome to Note's documentation!
 
    Kali持久加密USB安装
 
+   guile/你好Guile
+
 Indices and tables
 ==================
 

@@ -163,15 +163,135 @@ Guile 带有许多有用的模块, 例如关于字符串处理或者命令行解
    scheme@(guile-user)> (read-line p)
    $2 = "drwxr-sr-x    2 mgrabmue mgrabmue     1024 Mar 29 19:57 CVS"
 
+5.2 编写新的模块
+++++++++++++++++++++++++++++++++++++++++++++++++++
+
+你可以用句法形式 *define-module* 创建新的模块.
+到下一个 *define-module* 为止, 所有的跟在这个形式后面的定义将被放进新的模块里.
+
+一个模块通常放在某个文件里, 并且那个文件被安装在一个 Guile 能自动找到它的位置上.
+下面是示例 ::
+
+  $ cat /usr/local/share/guile/site/foo/bar.scm
+
+  (define-module (foo bar)
+    #:export (frob))
+
+  (define (frob x) (* 2 x))
+
+  $ guile
+  scheme@(guile-user)> (use-modules (foo bar))
+  scheme@(guile-user)> (frob 12)
+  $1 = 24
+
+寻找更多如何安装你的扩展的信息, 参考 `Installing Site Packages`_ ;
+
+5.3 把扩展放进模块里
+++++++++++++++++++++++++++++++++++++++++++++++++++
+
+除 Scheme 代码之外, 你也能把以 C 定义的东西放进模块里;
+
+你可以通过编写一个小的定义模块的 Scheme 文件来做到,
+并且直接在模块体内调用 *load-extension* ; ::
+
+  $ cat /usr/local/share/guile/site/math/bessel.scm
+
+  (define-module (math bessel)
+    #:export (j0))
+
+  (load-extension "libguile-bessel" "init_bessel")
+  
+  $ file /usr/local/lib/guile/2.2/extensions/libguile-bessel.so
+  … ELF 32-bit LSB shared object …
+  $ guile
+  scheme@(guile-user)> (use-modules (math bessel))
+  scheme@(guile-user)> (j0 2)
+  $1 = 0.223890779141236
+
+更多信息请参考 `Modules and Extensions`_ ;
+
+6 报告 Bug
+------------------------------------------------------------
+
+有关安装的任一问题报告给 bug-guile@gnu.org.
+
+如果你在 Guile 中找到一个 bug , 请把它报告给 Guile 的开发者们, 这样他们能修复它.
+当你不可能应用 Bug 修复或者安装一个新版本的 Guile 时, 他们也许能给出应变措施.
+
+在提交 Bug 报告之前, 请检查接下来的列表以确保你真地找到了一个 Bug .
+
+  #. 每当文档和实际行为不同时，您肯定在文档或程序中发现了一个 bug .
+  #. 当 Guile 崩溃时;
+  #. 当 Guile 永远在完成一个任务时;
+  #. 当计算产生错误结果时;
+  #. 当 Guile 为合法的 Scheme 程序发出错误信号时;
+  #. 当 Guile 没有为非法的 Scheme 程序发出错误信号时, 这有可能是一个 bug,
+     除非被明确说明;
+  #. 当文档的某些部分不明确并且甚至在你重新阅读那个部分后仍然让你不能理解,
+     这也是 bug [#bug]_ ;
+
+在你报告 bug 之前, 请检查一些你加载到 Guile 里的程序
+是否设定了一些可能会影响 Guile 功能的变量, 包括你的 *.guile* 文件;
+同时, 看看刚刚启动的没有载入你的 *.guile* 文件的 Guile 是否有问题发生
+(带有 *-q* 选项启动 Guile以防止加载那个初始化文件).
+如果问题没有发生, 你得报告你加载进 Guile的任何程序的准确内容, 以便复现问题;
+
+当你编写 bug 报告时, 请确保在报告中包含如下信息.
+如果你不能弄明白一些项, 也没关系, 但是我们获得的信息越多,
+我们能诊断并修复 bug 的可能就越高.
+
+  #. Guile 的版本号. 你可以在你的 shell 上调用 ``guile --version``
+     或者在 Guile 内调用 ``(version)``来获取此信息;
+
+  #. 你的机器类型可被 ``config.guess`` shell 脚本确定.
+     如果你检查 Guile, 就会发现此文件在 *build-aux* 中;
+     此外, 你能从 http://git.savannah.gnu.org/gitweb/?p=config.git;a=blob_plain;f=config.guess;hb=HEAD 获取最新版本 [#config.guess]_. ::
+
+       $ build-aux/config.guess
+       x86_64-pc-linux-gnu
+
+  #. 如果你从一个二进制包安装 Guile, 那个包的版本就是.
+     在使用 RPM 的系统上, 使用 ``rpm -qa |grep guile``.
+     在使用 DPKG 的系统上, ``dpkg -l | grep guile`` .
+
+  #. 如果你自行编译 Guile, 附上你使用的编译配置: ::
+
+       $ ./config.status --config
+       '--enable-error-on-warning' '--disable-deprecated'...
+
+  #. 如何复现 bug 的完整描述.
+
+     假设你有一个产生了 bug 的 Scheme 程序, 请把它包含到 bug 报告里.
+     如果你的程序太大而无法包含, 请尝试将代码减少到最小的测试用例.
+
+     如果你能在 REPL 上复现你的问题, 那是最好的, 给出你在 REPL 上输入的表达式.
+
+  #. 不正确行为的描述. 例如, "Guile 进程得到一个致命的信号" 或者
+     "输出结果如下, 我哪儿想错了".
+
+     假如 bug 的显示是 Guile 的错误消息, 报告错误消息的精确内容很重要,
+     并且回溯将显示那个 Scheme 程序如何到达那个错误的.
+     可以在 Guile 的调试器里使用 *,backtrace* 命令做到.
+
+如果你的 bug 引起 Guile 崩溃, 来自底层的调试器(如 GDB)的额外信息将很有帮助.
+如果你自行编译了 Guile, 你能够在 GDB 下通过 *meta/gdb-uninstalled-guile* 脚本
+运行 Guile. 调用包装脚本而不是像平常一样调用 Guile, 键入 *run* 来启动进程,
+然后在崩溃发生时 *backtrace*. 把回溯包含在你的报告中.
+
 ------------------
 
-.. [#guile] 像是 "跪了" 的发音, 哈哈!
-.. [#extra_info] 像是 bash 脚本的开头有 **#/usr/bin/bash** 一样,
+.. [#Guile] 像是 "跪了" 的发音, 哈哈!
+.. [#Extra_Info] 像是 Bash 脚本的开头有 **#/usr/bin/bash** 一样,
 		 但 Guile 脚本有所不同;
 .. [#link] 编译需要 *libguile.h* 库, 需要安装 *compat-guile18-devel* ,
 	   根据版本不同, 将 18 换成相应版本号;
 	   编译时需要 *--libs guile-2.2* 也要需要换成相应版本号, 如 1.8;
+.. [#bug] 写这文档的人真有趣;
+.. [#config.guess] 直接 wget 下载, 下载完改名, 或者直接重命名下载,
+		   不要直接复制粘贴到 VIM 或 Emacs 中, 会出问题;
 
 .. _`Installing Site Packages`: https://www.gnu.org/software/guile/docs/docs-2.0/guile-ref/Installing-Site-Packages.html#Installing-Site-Packages
 
 .. _Modules: https://www.gnu.org/software/guile/docs/docs-2.0/guile-ref/Modules.html#Modules
+
+.. _`Modules and Extensions`: https://www.gnu.org/software/guile/docs/docs-2.0/guile-ref/Modules-and-Extensions.html#Modules-and-Extensions

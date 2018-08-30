@@ -102,14 +102,84 @@ shell 命令
 循环构造
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 - until
+
   - ``until test-commands; do consequent-commands; done``
+  - 只要 test-commands 的退出状态 *非零* , 就执行;
+
+    直到 test-commands 的状态为 0, 才退出循环;
+
+  - 最后一个命令的退出状态作为整体的返回值, 如果未执行, 就返回 0;
 
 - while
+
   - ``while test-commands; do consequent-commands; done``
+  - 只要 test-commands 的退出状态为 0, 就执行循环; 其余同上;
 
 - for
+
   - ``for name [ [in [words …] ] ; ] do commands; done``
+
+    - 将 *word* 展开为结果列表, 并为每一个在结果列表中的成员执行一次 *commands* ,
+      带有绑定了当次循环成员的 *name* ;
+    - 如果 *in word* 未指定, 则每一个位置参数上执行一次,
+      就像是 ``for name in "$@"`` ;
+    - 退出状态同上;
+      
   - ``for (( expr1 ; expr2 ; expr3 )) ; do commands ; done``
+
+    - 类 C 的循环结构
+    - expr1 首先被求值;
+    - 然后 expr2 被重复求值, 直到求值为 0;
+    - expr2 被求值后, 不为 0, 则执行 **commands** ,
+      然后对 expr3 求值;
+    - 如果任一部分缺失, 则相当于被求值为 1;
+
+      ``for ((;;));do echo hello;done`` 等价于 ``while ; do echo hello; done``
+
+- until, while, for三者基本可互相替换, 并且都需要 do done;
+
+条件构造
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+- if
+
+::
+
+   if test-commands; then
+     consequent-commands;
+   [elif more-test-commands; then
+     more-consequents;]
+   [else alternate-consequents;]
+   fi
+
+   #. *test-commands* 首先被执行, 如果返回状态为 0,
+   #. *consequent-commands* 被执行, 如果返回状态不为 0,
+   #. 每一个 elif 列表将依次被执行, 如果返回状态为 0, 则执行 *more-consequents* ,
+   #. 如果存在 else 列表, 且上面的所有 if 和 elif 的返回状态不为 0, 则执行 *alternate-consequents* ;
+
+- case
+
+::
+
+  case word in [ [(] pattern [| pattern]…) command-list ;;]… esac
+
+  - 有选择执行命令列表;
+  - 如果 **nocasematch** [#nocasematch]_ 被启用, 则在不考虑字母字符大小写的情况下执行匹配操作;
+  - `|` 被用来分隔多个匹配模式;
+  - `)` 被用来终结匹配模式列表;
+  - 一个匹配模式列表和与之相关的命令列表构成一个从句
+  - 每个从句必须以 ``;;`` , ``;&`` , ``;;&`` 终结.
+
+    - 使用 *;;* , 第一次匹配后, 不会继续向下匹配;
+    - 使用 *;&* , 匹配执行后, 执行 ;& 后面的从句(不需要重新匹配, 直接执行), 如果有的话;
+    - 使用 *;;&* , 匹配执行后, 执行 ;;& 后的从句的匹配, 如果匹配, 则继续执行;
+  - 使用 ``*`` 作为最后的匹配模式以定义默认的情况;
+  - 没有一个匹配, 则返回 0, 否则就最后一个命令的退出状态;
+
+- select
+- ((...))
+- [[...]]
+
 
   
 
@@ -161,4 +231,5 @@ fc -e emacs 以 emacs 打开并显示最近一条命令;
 
 .. rubric:: 注
 
-.. [#fc] Fix Command
+.. [#fc] Fix Command;
+.. [#nocasematch] 通过 shopt 开关;

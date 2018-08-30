@@ -3,8 +3,5 @@ shell扩展
 
 shell有7种扩展:
 
-.. toctree::
-   :maxdepth: 2
-
-   花括号扩展
+  - :doc:`花括号扩展`
    

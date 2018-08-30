@@ -34,7 +34,7 @@ Welcome to Note's documentation!
    sbcl/setq_setf区别
    sbcl/高阶LOOP
 
-   Kali持久加密USB安装
+   kali/Kali持久加密USB安装
 
    guile/你好Guile
 

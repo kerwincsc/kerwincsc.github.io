@@ -25,6 +25,7 @@ Welcome to Note's documentation!
    gitNote/gitbash命令行中文显示异常解决
 
    bashTips/详解Linux_bash中的变量
+   bashTips/bash
 
    temp/common-lisp
    temp/如何查看CommonLisp的标准函数
@@ -35,6 +36,8 @@ Welcome to Note's documentation!
    sbcl/高阶LOOP
 
    kali/Kali持久加密USB安装
+   kali/basic_tool/netcat
+   kali/basic_tool/wireshark
 
    guile/你好Guile
 

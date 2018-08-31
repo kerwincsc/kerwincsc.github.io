@@ -38,6 +38,7 @@ Welcome to Note's documentation!
    kali/Kali持久加密USB安装
    kali/basic_tool/netcat
    kali/basic_tool/wireshark
+   kali/basic_tool/tcpdump
 
    guile/你好Guile
 

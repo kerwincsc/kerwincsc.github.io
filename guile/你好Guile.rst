@@ -241,7 +241,7 @@ Guile 带有许多有用的模块, 例如关于字符串处理或者命令行解
 我们能诊断并修复 bug 的可能就越高.
 
   #. Guile 的版本号. 你可以在你的 shell 上调用 ``guile --version``
-     或者在 Guile 内调用 ``(version)``来获取此信息;
+     或者在 Guile 内调用 ``(version)`` 来获取此信息;
 
   #. 你的机器类型可被 ``config.guess`` shell 脚本确定.
      如果你检查 Guile, 就会发现此文件在 *build-aux* 中;

@@ -239,6 +239,9 @@ next term
 
 内部链接通过Sphinx提供的一个特殊的reST作用完成, 参考特殊标记部分 `Cross-referrencing arbitrary locations`_.
 
+即在文档的任意位置添加形如 ``.. _your_label_name:`` ,
+在需要链接的地方写上 **:ref:`your_label_name`**, 注意: 下划线是必须的;
+
 
 段落 Sections
 +++++++++++++++++++++++++++++++++++++

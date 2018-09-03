@@ -24,8 +24,8 @@ Welcome to Note's documentation!
    gitNote/推送时选择matching还是simple
    gitNote/gitbash命令行中文显示异常解决
 
-   bashTips/详解Linux_bash中的变量
-   bashTips/bash
+   bash/bash
+   bash/bash_tips
 
    temp/common-lisp
    temp/如何查看CommonLisp的标准函数

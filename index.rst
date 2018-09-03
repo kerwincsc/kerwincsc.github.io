@@ -26,6 +26,7 @@ Welcome to Note's documentation!
    sbcl/index_sbcl
    git/index_git
    emacs/index_emacs
+   vbox/index_vbox
 
 Indices and tables
 ==================

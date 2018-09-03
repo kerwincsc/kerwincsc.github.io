@@ -30,18 +30,12 @@ Welcome to Note's documentation!
    temp/common-lisp
    temp/如何查看CommonLisp的标准函数
 
-   sbcl/sbcl使用记录
-   sbcl/CAR和CDR
-   sbcl/setq_setf区别
-   sbcl/高阶LOOP
-
-   kali/Kali持久加密USB安装
-   kali/basic_tool/netcat
-   kali/basic_tool/wireshark
-   kali/basic_tool/tcpdump
-   kali/basic_tool/nslookup
-
    guile/你好Guile
+
+
+   kali/index_kali
+   sbcl/index_sbcl
+   git/index_git
 
 Indices and tables
 ==================

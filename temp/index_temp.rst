@@ -5,4 +5,6 @@
    :maxdepth: 2
    :caption: 目录
 
+   tmux
    Tmux中Tab需要按2次才生效
+

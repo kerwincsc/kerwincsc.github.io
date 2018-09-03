@@ -23,6 +23,7 @@ Welcome to Note's documentation!
    git/index_git
    emacs/index_emacs
    vbox/index_vbox
+   temp/index_temp
 
 Indices and tables
 ==================

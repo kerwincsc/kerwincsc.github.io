@@ -19,17 +19,8 @@ Welcome to Note's documentation!
    用OpenVPN创建Peer-to-Peer的VPN
    使用OpenVPN创建RemoteAccess的VPN
    将emacs作为服务启动
-
-   gitNote/解决gitignore文件不起作用及规则介绍
-   gitNote/推送时选择matching还是simple
-   gitNote/gitbash命令行中文显示异常解决
-
    bash/bash
    bash/bash_tips
-
-   temp/common-lisp
-   temp/如何查看CommonLisp的标准函数
-
    guile/你好Guile
 
 

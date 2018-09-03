@@ -19,11 +19,9 @@ Welcome to Note's documentation!
    用OpenVPN创建Peer-to-Peer的VPN
    使用OpenVPN创建RemoteAccess的VPN
    将emacs作为服务启动
-   bash/bash
-   bash/bash_tips
    guile/你好Guile
 
-
+   bash/index_bash
    kali/index_kali
    sbcl/index_sbcl
    git/index_git

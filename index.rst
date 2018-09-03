@@ -39,6 +39,7 @@ Welcome to Note's documentation!
    kali/basic_tool/netcat
    kali/basic_tool/wireshark
    kali/basic_tool/tcpdump
+   kali/basic_tool/nslookup
 
    guile/你好Guile
 

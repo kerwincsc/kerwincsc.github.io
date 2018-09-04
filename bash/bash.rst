@@ -379,9 +379,48 @@ shell 的执行顺序:
   - 在赋值语句为 shell 变量或数组索引 (请参见数组) 分配数值的上下文中,
     "+=" 运算符可用于追加到变量的上一个值, 也可以添加到它;
 
-    - 用于设置了整型属性的变量时
-    - 应用于使用复合赋值的数组变量时
-    - 
+    - 用于设置了整型属性的变量时 ::
+
+	[root@work test]# declare -i test=1
+	[root@work test]# echo $test
+	1
+	[root@work test]# test+=1
+	[root@work test]# echo $test
+	2
+	如果不声明为整型变量时, 结果将会是 11
+	
+
+    - 应用于使用复合赋值的数组变量 [#array_variable]_ 时
+
+      - 声明为索引数组变量时
+
+        - 声明为普通索引数组变量时: ::
+
+	  [root@work test]# declare -a array=(2 4 6 8)
+	  [root@work test]# for i in ${array[@]}; do echo $i;done
+	  2 4 6 8
+	  [root@work test]# array+=10
+	  [root@work test]# for i in ${array[@]}; do echo $i;done
+	  210 4 6 8
+	  [root@work test]# array[2]+=10
+	  [root@work test]# for i in ${array[@]}; do echo $i;done
+	  210 4 610 8
+
+        - 声明为整型索引数组变量时 ``declare -ai array1=(2 4 6 8)``
+	  ``declare -ai array2=(a b c d)``
+
+	  - 在 array1 中, 除使用 **array1+=22** , 会直接替换 array[0] 的值为 22 以外,
+	    其余诸如 **array1[i]+=2** , 会在原有的数字基础上增加;
+	  - 在 array2 中, 任何的 **array1[i]+=2** 都会直接替换原有的值;
+
+	    形如 **array1[i]+=a**, 如果 i 值超出索引, 则在尾部增加一个索引值为 i 的索引, 使其值为 0;
+	    如果索引位置上的值是字符, 则将索引位的值设为 0; 如果是数字, 则不变;
+
+	  
+      - 声明为关联数组变量时 ``declare -A as_array=([a]=1 [b]=2)``
+
+	- 
+
 
 3.4.1 位置参数
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -533,3 +572,4 @@ fc -e emacs 以 emacs 打开并显示最近一条命令;
 .. [#declare] 实际测试发现, ``declare -F`` 将会输出成 **declare -f fun_name**
 .. [#positional_parameter] 结果集可被遍历, 反之, 在双引号的无法被遍历;
 .. [#underscore] 这句完全不能理解;
+.. [#array_variable] 对于数组变量, 数组名就是存的就是第一个索引;

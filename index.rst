@@ -10,20 +10,16 @@ Welcome to Note's documentation!
    :maxdepth: 2
    :caption: Contents:
 
-   reSTPrimer
-   Sphinx-with-LaTeX
-
-   gpg_basic
-
-   guile/你好Guile
-
    bash/index_bash
    kali/index_kali
    sbcl/index_sbcl
    git/index_git
    emacs/index_emacs
    vbox/index_vbox
+   sphinx/index_sphinx.rst
+   guile/你好Guile
    temp/index_temp
+   gpg_basic
 
 Indices and tables
 ==================

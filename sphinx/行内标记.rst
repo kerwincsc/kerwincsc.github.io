@@ -1,0 +1,45 @@
+行内标记
+======================================================================
+
+
+交叉引用任意位置
+------------------------------------------------------------
+
+**:ref:**
+
+  - 如果直接在区段标题之前放置标签, 可以这样引用 ``:ref:`label-name``` ::
+
+      .. _label-name:
+
+      Section to cross-reference
+      --------------------------
+      
+      This is the text of the section.
+      
+      It refers to the section itself, see :ref:`my-reference-label`.
+
+
+    适用于区段与引用不在同一源文件内 [#cross-ref]_;
+
+    自动标签也适用于图像 ::
+
+      .. _my-figure:
+
+      .. figure:: whatever.png
+
+	 Figure caption
+
+    这样, ``:ref:`my-figure``` 将会插入链接文本为 "Figure caption" 的引用;
+    figure 后的文件要指定后缀, 不然无法识别;
+
+  - 没有放在区段标题之前的标签也能被引用 [#cross-ref-explicit]_, 只要给定一个显示的标题;
+
+    语法如下: ``:ref:`Link title<label-name>``` ;
+
+.. rubric:: 注释
+
+.. [#cross-ref]
+   严格地说, 也可以在同一源文件内引用, 但是意义不大;
+
+.. [#cross-ref-explicit]
+   也可以用于第一种情况, 如果你确实需要一个显式标题, 替换丑陋的标签名

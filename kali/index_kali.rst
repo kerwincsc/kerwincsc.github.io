@@ -12,3 +12,4 @@ KALI 渗透测试
    basic_tool/wireshark
    basic_tool/tcpdump
    basic_tool/nslookup
+   basic_tool/dig

@@ -79,6 +79,8 @@ DNS爆破命令集, 重要的不是命令, 是字典
 
   ``dnsdict6 -d4 -t 16 -x sina.com``
 
+  在 kali-mate 4.17.0 的版本中, dnsdict6 已经变成了 atk6-dnsdict6;
+
   - -t 指定并发数
   - -d4 ipv4 ipv6 均收集
 

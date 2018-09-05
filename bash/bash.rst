@@ -394,17 +394,19 @@ shell 的执行顺序:
 
       - 声明为索引数组变量时
 
-        - 声明为普通索引数组变量时: ::
+        - 声明为普通索引数组变量时:
 
-	  [root@work test]# declare -a array=(2 4 6 8)
-	  [root@work test]# for i in ${array[@]}; do echo $i;done
-	  2 4 6 8
-	  [root@work test]# array+=10
-	  [root@work test]# for i in ${array[@]}; do echo $i;done
-	  210 4 6 8
-	  [root@work test]# array[2]+=10
-	  [root@work test]# for i in ${array[@]}; do echo $i;done
-	  210 4 610 8
+	  ::
+
+	    [root@work test]# declare -a array=(2 4 6 8)
+	    [root@work test]# for i in ${array[@]}; do echo $i;done
+	    2 4 6 8
+	    [root@work test]# array+=10
+	    [root@work test]# for i in ${array[@]}; do echo $i;done
+	    210 4 6 8
+	    [root@work test]# array[2]+=10
+	    [root@work test]# for i in ${array[@]}; do echo $i;done
+	    210 4 610 8
 
         - 声明为整型索引数组变量时 ``declare -ai array1=(2 4 6 8)``
 	  ``declare -ai array2=(a b c d)``

@@ -47,15 +47,71 @@
 
 缓存DNS服务器本身不存储任何记录;
 
-信息收集 ------ NSLOOKUP
-======================================================================
+DNS区域传输
+------------------------------------------------------------
 
-* :ref:`nslookup_basic`
+**区域传输**: DNS服务器之间同步信息的过程
 
-信息收集 ------ DIG
-======================================================================
+查询 DNS 的 AXFR [#axfr]_ 记录, 如果查询失败, 则进行爆力破解
 
-* :ref:`dig_basic`
+- :ref:`dig<dig_basic>`
+
+  ``dig @ns2.sina.com sina.com axfr``
+
+- host -T -l sina.com ns3.sina.com
+
+   -T 使用 TCP/IP
+   -l 获取 AXFR 记录
+
+DNS字典爆破
+------------------------------------------------------------
+
+DNS爆破命令集, 重要的不是命令, 是字典
+
+- fierce
+
+  ``fierce -dnsserver 8.8.8.8 -dns sina.com.cn -wordlist a.txt``
+
+  - -wordlist 指定字典文件
+  - 此命令默认以单线程运行, 可以通过指定线程数 **-threads N**
+
+- dnsdict6
+
+  ``dnsdict6 -d4 -t 16 -x sina.com``
+
+  - -t 指定并发数
+  - -d4 ipv4 ipv6 均收集
+
+- dnsenum
+
+  ``dnsenum -f dnsbig.txt -dnsserver 8.8.8.8 sina.com -o sina.xml``
+
+- dnsmap
+
+  ``dnsmap sina.com -w dns.txt``
+
+- dnsrecon
+
+  ``dnsrecon -d sina.com --lifetime 10 -t brt -D dnsbig.txt``
+
+  ``dnsrecon -t std -d sina.com``
+
+
+DNS注册信息
+------------------------------------------------------------
+
+- whois
+
+  ``whois -h whois.apnic.net 192.0.43.10``
+
+  
+
+DNS信息收集工具
+------------------------------------------------------------
+
+* :ref:`nslookup<nslookup_basic>`
+
+* :ref:`dig<dig_basic>`
 
 
 .. rubric:: 备注
@@ -63,3 +119,5 @@
 .. [#FQDN] FQDN: (Fully Qualified Domain Name)全限定域名; 同时带有主机名和域名的名称.
 
 	   例如：主机名是bigserver,域名是mycompany.com,那么FQDN就是bigserver.mycompany.com
+.. [#axfr]
+   AXFR请求, 是从DNS服务器请求在主DNS服务器上更新信息的一类域名系统的请求;

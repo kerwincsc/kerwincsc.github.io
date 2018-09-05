@@ -8,8 +8,3 @@ Sphinx with LaTeX
 
 直接安装 ``XeLaTeX`` , 然后指定其位置, 编译失败!
 
-.. _my_figure:
-
-.. figure:: whatever.svg
-
-   中文

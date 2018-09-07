@@ -187,11 +187,138 @@
 
   不知道怎么用, 也不知道干啥用的;
 
+- **:file:**
 
+  文件或目录的名称. 在内容中, 可使用花括号来指示"变量"部分, 比如: ::
+
+    ... is installed in :file:`/usr/lib/python2.{x}/site-packages` ...
+
+  在生成的文档中, x 将以不同的方式显示, 以指示它将被 Python 次要版本替换;
+
+  目前, 找不到这个语义的应用场景;
+
+- **:guilabel:**
+
+  作为交互式用户界面的一部分呈现的标签应使用 **guilabel** 标记;
+  这包括基于文本的接口的标签, 例如, 使用 *curses* 或者其它的基于文本的库创建的标签;
+  接口中使用的任何标签都应该使用此角色标记, 包括按钮标签, 窗口标题, 字段名称,
+  菜单和菜单选择名称, 甚至选择列表中的值;
+
+  1.0 版本中的改变: GUI 标签的快捷键可以使用 **&** 包含(例如 ``:guilabel:`&Cancel``` );
+  这将被剥离, 并显示在输出中带下划线. 要包含一个字面的 & , 写两个;
+
+  用法举例: ::
+
+    :guilabel:`OK`      # 生成一个网页上按钮的标签;
+    :guilabel:`&Cancel` # 同上, 但是它多了一个快捷键属性: 快捷键 C;
+	                # sphinx_rtd_theme 主题下未见到明显的分离情况;
+    :guilabel:`OK&&NOT` # 同第一个, 会生成内容为 OK&NOT 的标签;
+
+    总的来说, 采用此语义标签会提升美观性;
+
+:guilabel:`OK`
+:guilabel:`&Cancel`
+:guilabel:`OK&&NOT`
+
+- **:kbd:**
+
+  标记击键顺序; 采用什么形式的击键顺序可能取决于平台或者取决于应用程序的特殊约定;
+  当没有相关约定时，应详细说明修饰符键的名称，以提高新用户和非母语使用者的可访问性;
+
+  例如: *xeamcs* 的键序可能会被如此标记 ``:kbd:`C-x C-f``` , 
+  但如果不参考特定的应用程序或平台, 同样的序列应该被标记成这样 ``:kbd:`Control-x Control-f```.
+
+  这是一个键绑定的例子 :kbd:`C-x C-f` [#keybind]_;
+
+- **:mailheader:** [#makevar_not_know]_
+
+  RFC 822 样式邮件头的名称; 
+  这个标记并不意味着邮件头正在电子邮件消息中使用, 但是可以用来指代任何具有相同“样式”的报头;
+  这也用于各种 MIME 规范定义的报头;
+  报头名应该按照通常在实践中发现的相同的方式输入, 如果有多个常见用法的情况下,
+  使用驼峰约定更好;
+  例如: ``:mailheader:`Content-Type``` --> :mailheader:`Content-Type`
+
+- **:makevar:** [#do_not_know]_
+
+  某个 make 变量的名称; ``:makevar:`makevartest``` --> :makevar:`makevartest`
+
+- **:manpage:**
+
+  对 man 手册的引用, 比如 ``:manpage:`ls(1)``` --> :manpage:`ls(1)` [#manpage_reference]_
+
+- **:menuselection:**
+
+  菜单选择应该使用 *menuselection* 角色标记; 它用来标记一个完整的菜单选择顺序,
+  包括选择子菜单和选择一个特殊的操作或者任何这种序列的子序列;
+  独立的选项应该被 **-->** 分开;
+
+  例如: ``:menuselection:`Start --> Programs``` --> :menuselection:`Start --> Programs`
+  或者是这样
+
+  ``:menuselection:`Start --> &Programs``` :menuselection:`Start --> &Programs`
+
+  当包含一些尾随指示器的选择时, 例如某些操作系统用来指示命令打开对话框的省略号,
+  则应从选择名称中省略该指示器;
+  *menuselection* 也支持像 *guilabel* 的 & 快捷键;
+
+- **:mimetype:** [#do_not_know]_
+
+  MIME 类型的名称, 或者 MIME 类型的组件(主要或次要部分，单独使用);
+
+  例如: ``:mimetype:`application/octet-stream``` --> :mimetype:`application/octet-stream`
+  
+- **:newsgroup:** [#do_not_know]_
+
+  新闻组的名称; 例如: ``:newsgroup:`news.newsfan.net``` --> :newsgroup:`news.newsfan.net`
+
+- **:program:**
+
+  可执行程序的名称; 这可能与某些平台的可执行文件的文件名不同; 特别是, 对于Windows程序,
+  应该省略.exe(或其他)扩展; 此角色可以和 *option* 一直使用;
+
+- **:regexp:**
+
+  正则表达式; 不包括引号;
+
+  例如: ``:regexp:`/w+([-+.]/w+)*@/w+([-.]/w+)*/./w+([-.]/w+)*``` -->
+        :regexp:`/w+([-+.]/w+)*@/w+([-.]/w+)*/./w+([-.]/w+)*`
+
+  光看输出结果, 好像就只是原样输出了;
+
+- **:samp:**
+
+  一段原义的文字，如代码; 在内容中, 可以使用大括号来指示 "变量" 部分, 如文件中所示;
+
+  例如: 在 ``:samp:`print 1+{variable}``` 中, **variable** 部分将被强调 [#samp]_;
+  :samp:`print 1+{variable}`
+
+  如果不需要 "可变部分" 指示, 则使用 ````code```` 代替;
+
+- **:pep:**
+
+  对 Python 增强方案的引用; 这将生成适当的索引项. 文本 "PEP 数字" 被生成;
+  在 HTML 的输出中, 此文本是指向指定 PEP 的在线副本的超链接;
+  你可以通过说 ``:pep:`number#anchor``` 来链接到指定部分;
+
+- **:rfc:**
+
+  对互联网征求修正意见书的引用; 这将生成适当的索引项; 文本 "RFC 数字" 被生成;
+  在 HTML 输出中, 此文本是一个指向指定的 RFC 在线副本超链接;
+  通过 ``:rfc:`number#anchor``` 链接到指定部分;
+  
 .. rubric:: Footnotes
 .. [#cross-ref]
    严格地说, 也可以在同一源文件内引用, 但是意义不大;
 .. [#cross-ref-explicit]
    也可以用于第一种情况, 如果你确实需要一个显式标题, 替换丑陋的标签名
-
-
+.. [#keybind]
+   说实话, 毫无美感可言, 不明白此标签存在的真正意义;
+.. [#makevar_not_know]
+   未发现此语义的应用场景;
+.. [#manpage_reference]
+   没有真的链接到 man 手册, 只是相当于告诉你, 可以参考 man 的此命令;
+.. [#do_not_know]
+   不知道干啥用的;
+.. [#samp]
+   估计用到的场景极少;

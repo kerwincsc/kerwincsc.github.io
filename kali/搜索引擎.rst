@@ -13,6 +13,42 @@ SHODAN - 撒旦
   - city
   - country (CN, US)
   - port (80, 21, 22, 23)
-  - os
-  - Hostname (主机域名)
-  - server
+  - os ``os:linuxe``  ``os:windows``
+  - Hostname (主机域名) : ``hostname:baidu.com``
+  - server  ``server:apache``
+
+- shodan 浏览器插件
+- API 接口生成自己的查询程序
+
+SHODAN实战举例
+++++++++++++++++++++++++++++++++++++++++++++++++++
+
+- 200 OK cisco country:JP
+- user:admin pass:password
+- linux upnp avtech
+
+
+Google
+------------------------------------------------------------
+
+- +充值 -支付
+- 北京的电子商务公司------北京 **intitle**:电子商务公司 intext:法人 **intext**:电话
+- 阿里网站上的北京公司联系人------北京 **site**:alibaba.com **inurl:contact**
+- 塞班司法案的PDF文档------SOX **filetype:pdf**
+- 法国的支付相关页面------payment **site:fr**
+
+
+Google搜索实例
+++++++++++++++++++++++++++++++++++++++++++++++++++
+
+- inurl:"level/15/exec/-/show"
+- intitle:"netbotz appliance" "OK"
+- inurl:"/admin/login.php"
+- inurl:"qq.txt"
+- filetype:xls "username|password"
+- inurl:ftp "password" filetype:xls site:baidu.com
+- inurl:Service.pwd
+
+- www.exploit-db.com/google-hacking-database(GHDB)
+
+  渗透测试必备站点

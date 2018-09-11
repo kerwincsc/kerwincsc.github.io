@@ -18,7 +18,14 @@ sed
 
 - 追加到行
 
-  - 追加到匹配行 ``sed -i '/pattern/a\append' filename``
-  - 追加到指定行 ``sed -i '2a\append' filename``
+  - 追加...
+
+    - 匹配行 ``sed -i '/pattern/a\append' filename``
+    - 指定行 ``sed -i '2a\append' filename``
+
+  - 插入
+
+    - 匹配行 ``sed -i '/pattern/i\append' filename``
+    - 指定行 ``sed -i '2i\append' filename``
 
   *-i* 写入到文件, 使之生效; *a* 追加到行; *\\* 如果有多个空格, 需要加;

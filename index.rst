@@ -19,7 +19,6 @@ Welcome to Note's documentation!
    sphinx/index_sphinx.rst
    guile/你好Guile
    temp/index_temp
-   gpg_basic
 
 Indices and tables
 ==================

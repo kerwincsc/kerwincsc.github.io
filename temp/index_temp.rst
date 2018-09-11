@@ -7,4 +7,5 @@
 
    tmux
    Tmux中Tab需要按2次才生效
+   gpg_basic
 

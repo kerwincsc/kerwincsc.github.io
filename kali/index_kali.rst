@@ -2,7 +2,7 @@ KALI 渗透测试
 ======================================
 
 .. toctree::
-   :maxdepth: 2
+   :maxdepth: 1
    :caption: 目录
 
 

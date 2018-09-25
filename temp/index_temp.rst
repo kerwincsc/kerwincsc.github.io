@@ -10,3 +10,4 @@
    gpg_basic
    常识
 
+   excel

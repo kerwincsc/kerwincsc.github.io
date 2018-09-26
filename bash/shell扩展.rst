@@ -383,7 +383,7 @@ Bash通过在子shell环境中执行命令, 并用命令的标准输出替换命
 该结果被视为待求值的算术表达式;
 算术表达式可嵌套;
 
-根据以下的规则执行求值 `shell 算术运算<https://www.gnu.org/software/bash/manual/bashref.html#Shell-Arithmetic>`_;
+根据以下的规则执行求值 `shell 算术运算 <https://www.gnu.org/software/bash/manual/bashref.html#Shell-Arithmetic>`_;
 如果表达式非法, 则BASH打印一条指示标准错误失败且不发生替换的消息;
 
 

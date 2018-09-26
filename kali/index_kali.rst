@@ -16,5 +16,4 @@ KALI 渗透测试
    basic_tool/nslookup
    basic_tool/dig
    basic_tool/veracrypt
-
-   recon-ng
+   recon_ng

@@ -16,6 +16,7 @@ Welcome to Note's documentation!
    git/index_git
    emacs/index_emacs
    vbox/index_vbox
+   kvm/index_kvm
    sphinx/index_sphinx.rst
    guile/你好Guile
    temp/index_temp

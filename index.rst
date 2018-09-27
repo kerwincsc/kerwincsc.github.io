@@ -12,6 +12,7 @@ Welcome to Note's documentation!
 
    bash/index_bash
    kali/index_kali
+   zabbix/index_zabbix
    sbcl/index_sbcl
    git/index_git
    emacs/index_emacs

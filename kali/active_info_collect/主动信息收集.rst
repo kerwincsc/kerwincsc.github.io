@@ -51,6 +51,82 @@
     - nmap 1.1.1.1-254 -sn    # -sn Ping Scan - disable port scan 只能二层发现
     - nmap -iL iplist.txt -sn # -iL <inputfilename>: Input from list of hosts/networks
 
+  - Netdiscover
+
+    - 专用于二层发现
+    - 可用于无线和交换网络环境
+    - 主动和被动探测
+
+    - 主动
+
+      - netdiscover -i eth0 -r 1.1.1.0/24
+      - netdiscover -I iplist.txt
+
+    - 被动
+
+      - netdiscover -p
+      - 主动arp容易触发报警
+
+  - Scapy 非常强大
+
+    - 作为Python库进行调用
+    - 也可作为单独的工具使用
+    - 抓包, 分析, 创建, 修改, 注入网络流量
+
+    - apt-get install python-gnuplot
+    - ARP().display()
+    - sr1() 发送组装好的数据包
+
+发现 --- 三层发现
+------------------------------------------------------------
+
+- 优点
+
+  - 可路由
+  - 速度比较快
+
+- 缺点
+
+  - 速度比二层慢
+  - 经常被边界防火墙过滤
+
+- IP, icmp 协议
+
+  - ping
+    - ping 1.1.1.1 -c 2
+    - ping **-R** www.sina.com / **traceroute** www.sina.com
+
+- Scapy
+
+  - OSI 多层堆叠手工生成 ICMP 包 --- IP/ICMP
+  - ip = IP()
+  - ip.dst = "1.1.1.1"
+  - ping = ICMP()
+  - a = sr1(ip/ping)
+  - a.display()
+  - ping 不存在的地址
+
+    - a = sr1(ip/ping, timeout=1)
+      
+  - a = sr1(IP(dst="1.1.1.1")/ICMP(), timeout=1)
+
+- fping
+
+  可针对地址段发包
+
+  - fping 1.1.1.1 -c 1                        # -c 发包数
+  - fping -g 192.168.1.100 192.168.1.200 -c 1 # -g 地址段
+  - fping -g 172.168.1.0/24 -c 1
+  - fping -f iplist.txt
+
+- Hping 
+
+  - 能够发送几乎任意 TCP/IP 包
+  - 功能强大但每次只能扫描一个目标
+
+  - hping3 1.1.1.1 -icmp -c 2
+  - for addr in $(seq 1 254); do hping3 1.1.1.$addr --icmp -c 1 >> handle.txt & done
+
 
 
 .. rubric:: Footnotes

@@ -110,22 +110,24 @@
       
   - a = sr1(IP(dst="1.1.1.1")/ICMP(), timeout=1)
 
-- fping
+- 三层发现常用工具
 
-  可针对地址段发包
+  - fping
+    
+    可针对地址段发包
 
-  - fping 1.1.1.1 -c 1                        # -c 发包数
-  - fping -g 192.168.1.100 192.168.1.200 -c 1 # -g 地址段
-  - fping -g 172.168.1.0/24 -c 1
-  - fping -f iplist.txt
+    - fping 1.1.1.1 -c 1                        # -c 发包数
+    - fping -g 192.168.1.100 192.168.1.200 -c 1 # -g 地址段
+    - fping -g 172.168.1.0/24 -c 1
+    - fping -f iplist.txt
 
-- Hping 
+  - Hping 
 
-  - 能够发送几乎任意 TCP/IP 包
-  - 功能强大但每次只能扫描一个目标
+    - 能够发送几乎任意 TCP/IP 包
+    - 功能强大但每次只能扫描一个目标
 
-  - hping3 1.1.1.1 -icmp -c 2
-  - for addr in $(seq 1 254); do hping3 1.1.1.$addr --icmp -c 1 >> handle.txt & done
+    - hping3 1.1.1.1 -icmp -c 2
+    - for addr in $(seq 1 254); do hping3 1.1.1.$addr --icmp -c 1 >> handle.txt & done
 
 四层发现
 ------------------------------------------------------------
@@ -192,6 +194,21 @@
        u.dport=33333
        r = (i/u)
        a = sr1(r, timeout=1, verbose=1)
+
+- 四层发现常用工具
+
+  - nmap 三层和四层扫描神器
+
+    - nmap 1.1.1.1-254 -PU53 -sn
+    - nmap 1.1.1.1-254 -PA80 -sn
+    - nmap -iL iplist.txt -PA80 -sn
+
+  - hping 
+
+    - hping3 --udp 192.168.1.1 -c 1
+
+      目标不可达, 状态为存活;
+
 
 .. rubric:: Footnotes
 

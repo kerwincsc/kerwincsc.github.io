@@ -19,3 +19,4 @@ KALI 渗透测试
    recon_ng
 
    active_info_collect/主动信息收集
+   active_info_collect/端口扫描

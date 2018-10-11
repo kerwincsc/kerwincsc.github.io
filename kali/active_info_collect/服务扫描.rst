@@ -1,0 +1,214 @@
+服务扫描
+======================================================================
+
+- 识别开放端口上运行的应用
+- 识别目标操作系统
+- 提高攻击效率
+
+  - Banner 捕获
+
+    从 Banner 可能获取到的信息:
+
+      - 软件开发商
+      - 软件名称
+      - 服务类型
+      - 版本号: 直接发现已知的漏洞和弱点
+
+    如何获取 Banner
+
+      - 连接建立后直接获取 banner
+
+    另类服务识别方法
+
+      - 特征行为和响应字段
+      - 不同的响应可用于识别底层操作系统
+
+    SNMP
+
+      - 简单网络管理协议
+      - Community Strings
+      - 信息查询或重新配置
+
+    识别和绕过防火墙筛选
+
+  - 服务识别
+  - 操作系统识别
+  - SNMP 分析
+  - 防火墙识别
+
+
+BANNER
+------------------------------------------------------------
+
+- nc -nv 172.31.225.72 25
+
+  返回 banner 信息
+
+- Python socket
+
+  Socket 模块用于连接网络服务
+
+  ::
+
+     import socket
+     banner= socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+
+     # connect 方法接收一个元组
+     banner.connect(("172.31.225.1", 22))
+     banner.recv(4096)
+     
+       'SSH-1.99-Cisco-1.25\n'
+
+     banner.close()
+
+  某些情况下, 不允许抓取 banner 信息,  recv 函数将因无法返回而挂起;
+
+- dmitry -p 172.31.225.1 -b
+
+  -p 执行TCP扫描; -b 从读取 banner 信息以显示;
+
+- nmap -sT 172.31.225.1 -p 22 --script=banner
+
+  通过 banner 脚本发现 banner 信息, 要建立完整连接, 所以要使用 -T 选项;
+
+- amap
+
+  - amap -B 172.31.225.1
+  - amap -B 172.31.225.1 1-500
+  - amap -B 172.31225.1 1-65535 | grep on
+
+
+服务识别
+------------------------------------------------------------
+
+- Banner 信息抓取能力有限
+
+- nmap 响应特征分析识别服务
+
+  - 发送一系列复杂的探测
+  - 依据响应牲 signature
+
+- nmap
+
+  - nmap 172.31.225.1 -p1-100 -sV
+
+    -sV 探查打开端口以确定服务/版本信息 
+
+- amap
+
+  - amap 172.31.225.1 1-20
+  - amap 172.31.225.1 1-20 -q
+  - amap 172.31.225.1 1-20 -qb
+
+    -b 打印 ACSII banner
+
+
+操作系统识别
+------------------------------------------------------------
+
+- 操作系统识别技术
+
+  - 种类繁多
+  - 好产品采用多种技术组合
+
+- TTL 起始值
+
+  - Windows: 128 (65 --- 128)
+  - Linux / Unix: 64 (1-64)
+  - 某些 Unix: 255
+
+  编程修改 TTL 值, 伪装操作系统, 误导扫描结果;
+
+主动识别
+++++++++++++++++++++++++++++++++++++++++++++++++++
+
+- python
+
+  通过 scapy 对 Linux 和 Windows 机器发包, 并接收回包,
+  判断回包的 TTL 值, 来大致判断系统类型;
+
+- nmap
+
+  - nmap -O 172.31.225.72  # 大写的字母 o, 不是数字 0;
+
+- xprobe2
+
+  - xprobe2 172.31.225.72  # 准头比较差
+
+
+被动识别
+++++++++++++++++++++++++++++++++++++++++++++++++++
+
+- IDS
+- 抓包分析
+- 被动扫描
+- p0f
+
+  - 结合 *ARP地址欺骗*, 识别全网 OS
+
+
+SNMP 扫描
+------------------------------------------------------------
+
+- snmp
+
+  snmp --> udp 服务端: 161 客户端: 162
+
+  dhcp server: 67 client: 68
+
+  - 信息金矿
+  - 经常被错误配置
+  - public / private / manager
+
+    配置 private, 可修改配置
+
+- MIB Tree
+
+  - SNMP Management Information Base (MIB)
+  - 树形的网络设备管理功能数据库
+  - 1.3.6.1.4.1.77.1.2.25
+
+    客户端导入标准的 MIB 库, 然后就可以使用上面的这个序列查特定的数据;
+
+- onesixtyone
+
+  161 命令
+
+  - onesixtyone 172.31.225.72 public
+
+    如果目标主机修改了默认的 community, 可以考虑使用下面的方式,
+    利用 community 字典来逐一尝试;
+    
+  - onesixtyone -c /usr/share/doc/onesixtyone/dict.txt -i host.txt -o my.log -w 100
+
+    /usr/share/doc/onesixtyone/dict.txt 默认自带了一个 community 的字典;
+
+    -w 是每隔多个毫秒去发一个包 ;
+
+    -i 跟主机列表 ;
+
+- snmpwalk
+
+  - snmpwalk 172.31.225.72 -c public -v 2c
+
+    -c community ;
+
+    -v 版本(包括 2c-->windows) ;
+
+  - snmpwalk 172.31.225.72 -c public -v 2c <OID>
+
+    比如目标系统的硬件架构的序列: iso.3.6.1.2.1.1.1.0, 则它的 OID 应该是把 iso 改为 1 的全部;
+
+    如下所示:
+
+    snmpwalk 172.31.225.72 -c public -v 2c 1.3.6.1.2.1.1.1.0
+
+- snmp-check
+
+  这个命令查看更直观;
+
+  此命令在教程中的 1.8 版本是 snmpcheck, 1.9 版本后就成了 snmp-check, 用法也有所改变;
+
+  - snmp-check 172.31.225.72 -c public
+
+    教程中, 此处用了 -t 参数, 但在 1.9 版本中, -t 参数意义被更改, --timeout

@@ -25,3 +25,4 @@ KALI 渗透测试
    active_info_collect/SNMP扫描
    active_info_collect/SMB扫描
    active_info_collect/SMTP扫描
+   active_info_collect/防火墙识别

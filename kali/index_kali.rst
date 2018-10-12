@@ -23,4 +23,5 @@ KALI 渗透测试
    active_info_collect/服务扫描
    active_info_collect/操作系统识别
    active_info_collect/SNMP扫描
+   active_info_collect/SMB扫描
    active_info_collect/SMTP扫描

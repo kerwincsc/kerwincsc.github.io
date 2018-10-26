@@ -1,0 +1,50 @@
+======================================================================
+增加内核
+======================================================================
+
+
+增加 Go 内核
+------------------------------------------------------------
+
+参考 `Github`_
+
+#. 先决条件
+
+   - Go 1.9+ 把 ``GOPATH/bin`` 包含到 *PATH* 中
+     (这样, 就可以运行使用 ``go install`` 安装的 Go 的二进制文件);
+
+   - Jupyter Notebook / nteract
+
+     一个是网页版, 一个是桌面版
+
+   - ZeroMQ 4.X.X
+
+     安装这个比较麻烦
+
+   - pkg-config
+
+     Centos 7 默认安装了此软件;
+
+
+#. 安装 Go 内核
+
+   ::
+
+      $ go get -u github.com/gopherdata/gophernotes
+      $ mkdir -p ~/.local/share/jupyter/kernels/gophernotes
+      $ cp $GOPATH/src/github.com/gopherdata/gophernotes/kernel/* ~/.local/share/jupyter/kernels/gophernotes
+
+
+#. 检查 *gophernotes* 已被安装且在 PATH 中
+
+   ::
+
+      $ gophernotes
+      2017/09/20 10:33:12 Need a command line argument specifying the connection file.
+
+   如果提示找不到命令的话, 很明显就是没有添加路径;
+   
+
+.. 超链接
+
+.. _Github: https://github.com/gopherdata/gophernotes

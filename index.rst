@@ -20,7 +20,7 @@ Welcome to Note's documentation!
    vbox/index_vbox
    kvm/index_kvm
    sphinx/index_sphinx
-   guile/你好Guile
+   guile/Guile
    jupyter/index_jupyter_notebook
    temp/index_temp
 

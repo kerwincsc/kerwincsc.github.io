@@ -10,6 +10,7 @@ Welcome to Note's documentation!
    :maxdepth: 2
    :caption: Contents:
 
+   python/index_python
    bash/index_bash
    kali/index_kali
    zabbix/index_zabbix

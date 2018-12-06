@@ -38,6 +38,10 @@ python3的内置
       else:
           print('我来自另一模块')
 
+#. **__package__**
+
+   当前包的包名
+
 #. **__slots__**
 
    Python 允许在定义 class 的时候, 定义一个特殊的 __slots__ 变量,

@@ -91,3 +91,9 @@ kvm部署
 - 查看虚拟机配置文件 ``ls /etc/libvirt/qemu/``
 - 随宿主机开机而启动 ``virsh autostart virt-name``,
   取消 ``virsh autostart --disable virt-name``
+
+Q&A
+------------------------------------------------------------
+
+#. kvm 中新安装的 ubuntu 系统没有打开 console 功能, 且默认情况下,
+   拒绝 SSH 连接, 这时应该如何开启 console 功能;

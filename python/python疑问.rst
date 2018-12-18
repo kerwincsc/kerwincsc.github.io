@@ -25,8 +25,18 @@ python疑问
 
      class Pair:
          def __init__(self, x, y):
-	     self.x = x                                                                            self.y = y
-	 def __repr__(self):                                                                       return 'Pair({0.x}, {0.y})'.format(self)
-	 def __str__(self):                                                                        return '({0.x}, {0.y})'.format(self)
+       	     self.x = x
+	     self.y = y
+	 def __repr__(self):
+	     return 'Pair({0.x}, {0.y})'.format(self)
+	 def __str__(self):
+	     return '({0.x}, {0.y})'.format(self)
 
   以上两种类的定义中, 加不加 **!r 与 !s** 有什么不同?
+
+- python中self和cls的区别
+
+  #. self表示一个具体的实例本身. 如果用了 staticmethod,
+     那么就可以无视这个 self, 将这个方法当成一个普通的函数使用;
+
+  #. cls表示这个类本身;

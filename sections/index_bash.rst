@@ -3,9 +3,7 @@ BASH
 
 .. toctree::
    :maxdepth: 2
+   :glob:
    :caption: 目录
 
-   bash
-   bash_tips
-
-   shell扩展
+   ../bash/*

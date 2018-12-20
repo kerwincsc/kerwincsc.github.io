@@ -149,7 +149,7 @@ This presents three easily solved practical issues:
    A more flexible approach is to have every method in the ancestor tree cooperatively
    designed to accept keyword arguments and a keyword-arguments dictionary,
    to remove any arguments that it needs,
-   and to forward the remaining arguments using **kwds,
+   and to forward the remaining arguments using \*\*kwds,
    eventually leaving the dictionary empty for the final call in the chain.
 
    Each level strips-off the keyword arguments that it needs

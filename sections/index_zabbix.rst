@@ -2,7 +2,8 @@ Zabbix 分布式监控软件
 ======================================================================
 
 .. toctree::
-   :maxdepth: 1
+   :maxdepth: 7
+   :glob:
    :caption: 目录
 
-   temp
+   ../zabbix/*

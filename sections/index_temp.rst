@@ -2,19 +2,9 @@
 ======================================================================
 
 .. toctree::
-   :maxdepth: 2
+   :maxdepth: 7
+   :glob:
    :caption: 目录
 
-   tmux
-   Tmux中Tab需要按2次才生效
-   gpg_basic
-   常识
+   ../temp/*
 
-   excel
-   pxe安装系统
-
-   linux_ACL权限
-   linux网络限速
-   rsync
-
-   知乎问答

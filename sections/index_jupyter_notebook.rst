@@ -5,13 +5,9 @@ Jupyter Notebook
 
 .. toctree::
    :maxdepth: 2
-   :caption: 目录:
+   :glob:
 
-   增加内核
-
-
-
-
+   ../jupyter/*
 
 
 .. rubric: 备注

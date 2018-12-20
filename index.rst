@@ -8,21 +8,11 @@ Welcome to Note's documentation!
 
 .. toctree::
    :maxdepth: 2
+   :glob:
    :caption: Contents:
 
-   python/index_python
-   bash/index_bash
-   kali/index_kali
-   zabbix/index_zabbix
-   sbcl/index_sbcl
-   git/index_git
-   emacs/index_emacs
-   vbox/index_vbox
-   kvm/index_kvm
-   sphinx/index_sphinx
+   sections/*
    guile/Guile
-   jupyter/index_jupyter_notebook
-   temp/index_temp
 
 Indices and tables
 ==================

@@ -3,6 +3,7 @@ VirtualBox 免费且强大的虚拟机
 
 .. toctree::
    :maxdepth: 7
+   :glob:
    :caption: 目录
 
    ../vbox/*

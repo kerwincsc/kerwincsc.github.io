@@ -3,6 +3,7 @@ KVM 基于内核的虚拟机
 
 .. toctree::
    :maxdepth: 2
+   :glob:
    :caption: 目录
 
-   kvm部署
+   ../kvm/*

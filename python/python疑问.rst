@@ -76,3 +76,17 @@ python疑问
 
 
 .. _Difference between __str__ and __repr__ in Python: https://stackoverflow.com/questions/1436703/difference-between-str-and-repr
+
+- 为什么 len 不是普通方法
+
+  我在 2013 年问核心开发者 Raymond Hettinger 这个问题时,
+  他用“Python 之禅”里的原话回答了我:"实用胜于纯粹."
+  在 1.2 节里我提到过, 如果 x 是一个内置类型的实例, 那么 len(x) 的速度会非常快.
+  背后的原因是 CPython 会直接从一个 C 结构体里读取对象的长度, 完全不会调用任何方法.
+  获取一个集合中元素的数量是一个很常见的操作, 在 str, list, memoryview 等类型上,
+  这个操作必须高效.
+
+  换句话说, len 之所以不是一个普通方法, 是为了让 Python **自带的数据结构** 可以走后门,
+  abs 也是同理. 但是多亏了它是特殊方法, 我们也可以把 len 用于自定义数据类型.
+  这种处理方式在保持内置类型的效率和保证语言的一致性之间找到了一个平衡点,
+  也印证了" Python 之禅" 中的另外一句话:"不能让特例特殊到开始破坏既定规则."

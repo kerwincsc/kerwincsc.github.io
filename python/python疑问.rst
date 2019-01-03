@@ -70,3 +70,9 @@ python疑问
        它是 **实例级别** 的方法;
 
     #. __new__ 通常用于 ``控制生成一个新实例`` 的过程. 它是 **类级别** 的方法
+
+
+- `Difference between __str__ and __repr__ in Python`_
+
+
+.. _Difference between __str__ and __repr__ in Python: https://stackoverflow.com/questions/1436703/difference-between-str-and-repr

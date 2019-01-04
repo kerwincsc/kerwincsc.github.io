@@ -9,3 +9,4 @@ KALI 渗透测试
    ../kali/*
    ../kali/active_info_collect/*
    ../kali/basic_tool/*
+   ../kali/wireless_attack/*

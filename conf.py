@@ -22,9 +22,9 @@ import os
 import sys
 sys.path.insert(0, os.path.abspath('/root/sphinx/source'))
 
-project = 'Note'
-copyright = '2018, kerwin'
-author = 'kerwin'
+project = '零散备忘'
+copyright = '2019, kerwin'
+author = 'kerwincsc@foxmail.com'
 
 # The short X.Y version
 version = ''

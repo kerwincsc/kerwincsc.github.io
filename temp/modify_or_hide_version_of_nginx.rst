@@ -17,8 +17,8 @@
      root@mail nginx-1.14.0]# vi src/core/nginx.h
      
      #define nginx_version         8053
-     **#define NGINX_VERSION**      "10.0"
-     **#define NGINX_VER**          "jh/" NGINX_VERSION
+     #define NGINX_VERSION      "10.0"
+     #define NGINX_VER          "jh/" NGINX_VERSION
      
      #define NGINX_VAR          "NGINX"
      #define NGX_OLDPID_EXT     ".oldbin"

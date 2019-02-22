@@ -40,7 +40,7 @@ TMUX 终端复用神器
      # type this in terminal if tmux is already running
      $ tmux source ~/.tmux.conf
      
-- 安装插件 tmux-resurrect
+- 安装会话恢复插件 tmux-resurrect
 
   .. code-block:: shell
 

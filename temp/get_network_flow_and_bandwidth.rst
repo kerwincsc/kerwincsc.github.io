@@ -8,7 +8,7 @@ Linux中的网络数据提取
 
 让我们来看下网络相关的 /proc/net/dev
 
-.. code-block::
+.. code-block:: shell
 
    Inter-|   Receive                                                |  Transmit
    face  |bytes    packets errs drop fifo frame compressed multicast|bytes    packets errs drop fifo colls carrier compressed                                                                                                                 enp0s3:40672303  428889    0    0    0     0          0        71  8611377   25983    0    0    0     0       0          0                                                                                                                 enp0s9:       0       0    0    0    0     0          0         0  8404374   47201    0    0    0     0       0          0                                                                                                                     lo: 2944080     941    0    0    0     0          0         0  2944080     941    0    0    0     0       0          0         

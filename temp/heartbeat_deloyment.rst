@@ -34,7 +34,8 @@ Heartbeat 部署
 
     - ./.libs/libplumb.so: undefined reference to `uuid_parse'
 
-      configure 时加上: ./configure LIBS='/lib64/libuuid.so.1'
+      configure 时加上: ./configure LIBS='/lib64/libuuid.so.1', 配置 Resource Agents 时,
+      也需要加上;
 
       32bit: LIBS='/lib/libuuid.so.1'
 

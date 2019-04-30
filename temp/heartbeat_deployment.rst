@@ -38,7 +38,7 @@ Heartbeat 部署
 
   - cluster glue 编译时常见错误
 
-    - ./.libs/libplumb.so: undefined reference to `uuid_parse'
+    - ./.libs/libplumb.so: undefined reference to 'uuid_parse'
 
       configure 时加上: ./configure LIBS='/lib64/libuuid.so.1', 配置 Resource Agents 时,
       也需要加上;

@@ -18,26 +18,81 @@ Centos7
 
 systemctl启动脚本 ::
 
-    [Unit]
-    Description=Start emacs in server.
-    
-    [Service]
-    Type=forking
-    ExecStart=/usr/bin/emacs --daemon
-    ExecStop=/usr/bin/kill -15 `ps -ef | grep 'emacs --daemon' | awk '{print $2}'`
-    [Install]
-    WantedBy=multi-user.target
+  [Unit]
+  Description=Start Emacs daemon
+  After=sshd.service
 
-.. warning::
-   如果 **ExecStop** 中的命令太长, 最好做成脚本;
-   否则, `systemctl status emacsserver.service` 会看到一个报警: ::
+  [Service]
+  Type=forking
+  User=root
+  Group=root
+  ExecStart=/usr/local/emacs/start-emacs start
+  ExecStop=/usr/local/emacs/start-emacs stop
 
-       Jun 07 10:48:43 work systemd[1]: [/usr/lib/systemd/system/emacsserver.service:9] Trailing garbage, ignoring.
+  [Install]
+  WantedBy=multi-user.target
 
 
 然后添加 ``alias e='emacsclient -nw'`` , 以后就可以直接使用 ``e [file]`` 编辑文件了;
 
 如果想开机启动的话, 就 ``systemctl enable emacsserver.service`` ;
+
+服务器启停脚本 ::
+
+  #!/bin/bash
+  set -e
+
+  function check_emacs_status () {
+     PID=$(ps -ef | grep "emacs --daemon" | grep -v grep | awk '{print $2}')
+
+     if [ -z "$PID" ]; then
+         echo "Emacs 已关闭"
+     else
+         echo "Emacs 正在运行中"
+         exit
+     fi
+     unset PID
+  }
+
+  function start_emacs () {
+     echo "Emacs Server Staring ...."
+     emacs --daemon >/dev/null 2>&1
+  }
+
+  function stop_emacs () {
+
+     PID=$(ps -ef | grep "emacs --daemon" | grep -v grep | awk '{print $2}')
+     if [ -z "$PID" ];then
+         echo "Emacs 进程不存在, 即将退出"
+         exit
+     else
+         echo "Emacs Server Stopping ...."
+         kill -9 $PID
+         return 0
+     fi
+     unset PID
+  }
+
+  case $1 in
+     start)
+         start_emacs
+         echo OK
+         ;;
+     stop)
+         stop_emacs
+         ;;
+     restart)
+         echo "Emacs Server Restarting ...."
+         stop_emacs
+         start_emacs
+         echo "Restarting OK"
+         ;;
+     status)
+         check_emacs_status
+         ;;
+     *)
+         echo "Useage: start | stop | restart | status"
+  esac
 
 FAQ
 ########################################

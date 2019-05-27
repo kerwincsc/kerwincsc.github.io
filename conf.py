@@ -174,3 +174,9 @@ intersphinx_mapping = {'https://docs.python.org/': None}
 
 # If true, `todo` and `todoList` produce output, else they produce nothing.
 todo_include_todos = True
+
+# Language to be used for generating the HTML full-text search index.
+# Sphinx supports the following languages:
+#   'da', 'de', 'en', 'es', 'fi', 'fr', 'hu', 'it', 'ja'
+#   'nl', 'no', 'pt', 'ro', 'ru', 'sv', 'tr', 'zh'
+html_search_language = 'zh'

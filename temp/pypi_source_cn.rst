@@ -41,5 +41,5 @@ Linux下，修改 ~/.pip/pip.conf ( 没有就创建一个文件夹及文件. 文
    [install]
    trusted-host=mirrors.aliyun.com
 
-windows 下, 直接在 user 目录中创建一个 pip 目录, 如: C:\Users\xx\pip,
+windows 下, 直接在 user 目录中创建一个 pip 目录, 如: C:\\Users\\xx\\pip,
 新建文件 pip.ini, 内容同上;

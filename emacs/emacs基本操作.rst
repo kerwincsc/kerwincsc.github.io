@@ -31,4 +31,4 @@ emacs基本操作
 文件修改
 ------------------------------------------------------------
 
-- 删除行尾 **** ``M-x replace-string RET C-q C-m RET``
+- 删除行尾 **^M** ``M-x replace-string RET C-q C-m RET``

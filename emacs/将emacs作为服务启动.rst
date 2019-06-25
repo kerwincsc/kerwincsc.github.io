@@ -109,3 +109,18 @@ FAQ
      emacsclient [File]
 
      M-x load-file <RET> ~/.emacs <RET>
+
+
+在 wins 中作为服务启动
+------------------------------------------------------------
+
+在任务计划中添加执行 ``runemacs.exe --daemon`` 的项;
+:download:`下载并导入到计划任务中<./download/打开emacs daemon模式.xml>`
+
+这样, 当系统启动后, 就会自动执行此任务; 如果进程意外退出, 在每天的 7:30 会再次启动;
+
+将 **Edit with Emacs** 集成到右键中,
+:download:`下载并导入到注册表中<./download/edit_with_emacs.reg>`
+
+此注册表文件中, **command** 值后面的 ``%1`` 加双引号是为了防止文件名中有空格,
+导致文件打开错误;

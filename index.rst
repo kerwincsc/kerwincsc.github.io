@@ -3,16 +3,15 @@
    You can adapt this file completely to your liking, but it should at least
    contain the root `toctree` directive.
 
-Welcome to Note's documentation!
+写到哪儿算哪儿-笔记
 ================================
 
 .. toctree::
-   :maxdepth: 3
+   :maxdepth: 4
    :glob:
    :caption: Contents:
 
    sections/*
-   guile/Guile
 
 Indices and tables
 ==================

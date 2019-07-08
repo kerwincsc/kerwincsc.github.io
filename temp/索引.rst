@@ -10,7 +10,12 @@ emacs
 - line-move-visual
 
   如果设置为 nil, 在使用 ``next-line`` / ``previous-line`` 时, 将逻辑行前进/后退
+- track-eol
 
+  跟踪行尾 eol: end-of-line
+
+  在 line-move-visual 为 nil 时, track-eol 为 t 时生效; 效果是:
+  当在一行的结尾使用 :kbd:`C-n` / :kbd:`C-p` 时, 跳到下/上一行的逻辑行尾;
 
 
 

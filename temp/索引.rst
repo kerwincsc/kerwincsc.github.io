@@ -17,6 +17,12 @@ emacs
   在 line-move-visual 为 nil 时, track-eol 为 t 时生效; 效果是:
   当在一行的结尾使用 :kbd:`C-n` / :kbd:`C-p` 时, 跳到下/上一行的逻辑行尾;
 
+- next-line-add-newlines
+
+  正常情况下, 在最后一行中使用 :kbd:`C-n` , 会使光标停留在最后一行的行尾;
+
+  如果 **next-line-add-newlines** 为 **t**,
+  则 :kbd:`C-n` 的效果将和 :kbd:`<RET>` 一致
 
 
 

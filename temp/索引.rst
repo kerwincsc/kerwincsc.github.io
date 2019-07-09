@@ -24,6 +24,10 @@ emacs
   如果 **next-line-add-newlines** 为 **t**,
   则 :kbd:`C-n` 的效果将和 :kbd:`<RET>` 一致
 
+- 重复执行上一个命令 :kbd:`C-x z (repeat)`
+
+  可多次重复执行上一个命令, 按 :kbd:`z`
+
 
 
 .. _`set-goal-column`: http://www.newsmth.net/nForum/#!article/Emacs/102606

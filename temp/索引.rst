@@ -28,6 +28,15 @@ emacs
 
   可多次重复执行上一个命令, 按 :kbd:`z`
 
+- file-name-shadow-mode
+
+  在原生的 find-file 下且此模式开启时, 按 *//* 会忽略前面的路径,
+  并用这样的形式表示 ``{/home/kerwi/} /etc/hostname``, 如果不开启此模式,
+  双斜杠形式依然有效, 但是无效部分不会被大括号包裹;
+
+  
+  如果安装了增强的 minibuffer 插件, 开关这个模式将毫无区别
+
 
 
 .. _`set-goal-column`: http://www.newsmth.net/nForum/#!article/Emacs/102606

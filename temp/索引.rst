@@ -33,9 +33,13 @@ emacs
   在原生的 find-file 下且此模式开启时, 按 *//* 会忽略前面的路径,
   并用这样的形式表示 ``{/home/kerwi/} /etc/hostname``, 如果不开启此模式,
   双斜杠形式依然有效, 但是无效部分不会被大括号包裹;
-
   
   如果安装了增强的 minibuffer 插件, 开关这个模式将毫无区别
+
+- insert-default-directory
+
+  如果为 nil, 使用 find-file 时, 就不会出现默认目录了;
+  但是如果使用相对文件名, 将仍然基于相同的默认目录解释;
 
 
 

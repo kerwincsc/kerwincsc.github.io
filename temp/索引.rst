@@ -62,7 +62,7 @@ emacs
 
 	- t, 不影响
 	- 'grow-only, 本来就不会自动调整 buffer 大小;
-    - completion
+    - completion 补全
 
       - read-file-name-completion-ignore-case
 
@@ -78,6 +78,13 @@ emacs
 	- t      始终循环
 	- *n*    如果可能的补全项数量小于 *n*, 则会在这些补全间循环
 	  否则不循环;
+
+    - history 历史
+
+      - history-length
+      - history-delete-duplicates
+
+	如果不为 nil, 新加入的历史记录与列表中的相同, 则删除那条相同的历史记录
 
   - 在 minibuffer 下换行
 

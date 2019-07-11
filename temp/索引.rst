@@ -41,6 +41,10 @@ emacs
   如果为 nil, 使用 find-file 时, 就不会出现默认目录了;
   但是如果使用相对文件名, 将仍然基于相同的默认目录解释;
 
+- 在 minibuffer 下换行
+
+  按 ``C-q C-j``, 将在 minibuffer 中插入 C-j 控制字符实现换行
+
 
 
 .. _`set-goal-column`: http://www.newsmth.net/nForum/#!article/Emacs/102606

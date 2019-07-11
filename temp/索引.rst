@@ -41,10 +41,51 @@ emacs
   如果为 nil, 使用 find-file 时, 就不会出现默认目录了;
   但是如果使用相对文件名, 将仍然基于相同的默认目录解释;
 
-- 在 minibuffer 下换行
+- minibuffer
 
-  按 ``C-q C-j``, 将在 minibuffer 中插入 C-j 控制字符实现换行
+  - 变量
 
+    - resize-mini-windows
+
+      - 'grow-only  仅让 buffer 变大 *
+      - nil         不自动调整 minibuffer 大小
+      - t           自适应调整
+
+    - max-mini-window-height
+
+      - 如果是小于 1 的浮点数, 则表示占全屏的百分比;
+        如默认值 0.25, 代表最高占全屏的 1/4;
+      - 如果是大于 1 的浮点数, 则使用默认值 0.25
+      - 如果是整数, 则表示行数;
+      - 如果是 nil, 文档中说不会自动调整 buffer 大小, 但实际上,
+	当 resize-mini-windows 是:
+
+	- t, 不影响
+	- 'grow-only, 本来就不会自动调整 buffer 大小;
+    - completion
+
+      - read-file-name-completion-ignore-case
+
+	在 minibuffer 中补全时忽略大小写, Linux 下默认为开;
+      - completion-ignored-extensions
+      - completion-auto-help
+
+	- nil  将不会主动出现补全列表 buffer, 除非输入 **?**
+	- lazy 尝试两次补全时才出现;
+      - completion-cycle-threshold
+
+	- nil    始终不循环
+	- t      始终循环
+	- *n*    如果可能的补全项数量小于 *n*, 则会在这些补全间循环
+	  否则不循环;
+
+  - 在 minibuffer 下换行
+
+    按 ``C-q C-j``, 将在 minibuffer 中插入 C-j 控制字符实现换行
+
+
+
+    
 
 
 .. _`set-goal-column`: http://www.newsmth.net/nForum/#!article/Emacs/102606

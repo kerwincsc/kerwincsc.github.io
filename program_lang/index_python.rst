@@ -6,4 +6,4 @@ Python Note
    :glob:
    :caption: 目录:
 
-   ../python/*
+   ./python/*

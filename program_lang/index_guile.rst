@@ -2,8 +2,8 @@ Guile 跪了
 ======================================================================
 
 .. toctree::
-   :maxdepth: 4
+   :maxdepth: 3
    :glob:
    :caption: 目录
 
-   ../guile/*
+   ./guile/*

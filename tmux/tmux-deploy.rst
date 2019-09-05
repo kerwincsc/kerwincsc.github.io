@@ -46,3 +46,10 @@ TMUX 部署
      # 在 ~/.tmux.conf 中加入此项
      set -g @plugin 'tmux-plugins/tmux-resurrect'
 
+- 安装 ``prefix + shift-i``
+
+- 升级 ``prefix + shift-u``
+
+- 反安装 ``prefix + alt-u``
+
+  将没有出现在 *tmux.conf* 中的插件全部移除

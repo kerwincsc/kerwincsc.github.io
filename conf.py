@@ -20,7 +20,7 @@
 # -- Project information -----------------------------------------------------
 import os
 import sys
-sys.path.insert(0, os.path.abspath('/root/sphinx/source'))
+sys.path.insert(0, os.path.abspath('/home/kerwin/github/sphinx/source'))
 
 project = '零散备忘'
 copyright = '2019, kerwin'

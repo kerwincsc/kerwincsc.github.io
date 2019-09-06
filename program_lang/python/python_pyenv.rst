@@ -16,6 +16,7 @@
      $ $ curl -L https://github.com/pyenv/pyenv-installer/raw/master/bin/pyenv-installer | bash
 
   并在 **~/.bashrc / ~/.zshrc** 中增加以下行
+  
   .. code-block:: shell
 		  
      export PATH="$HOME/.pyenv/bin:$PATH"
@@ -24,9 +25,7 @@
 
   安装完成后, 重启 shell;
 
-- 更新
-
-  ``pyenv update``
+- 更新 ``pyenv update``
 
 - 卸载
 

@@ -10,12 +10,14 @@
 - 安装
   
   .. code-block:: shell
+		  
      $ curl https://pyenv.run | bash
      # 等同于下面
      $ $ curl -L https://github.com/pyenv/pyenv-installer/raw/master/bin/pyenv-installer | bash
 
   并在 **~/.bashrc / ~/.zshrc** 中增加以下行
   .. code-block:: shell
+		  
      export PATH="$HOME/.pyenv/bin:$PATH"
      eval "$(pyenv init -)"
      eval "$(pyenv virtualenv-init -)"
@@ -33,6 +35,7 @@
   并从 *~/.bashrc / ~/.zshrc* 中移除以下行
 
   .. code-block:: shell
+		  
      export PATH="$HOME/.pyenv/bin:$PATH"
      eval "$(pyenv init -)"
      eval "$(pyenv virtualenv-init -)"

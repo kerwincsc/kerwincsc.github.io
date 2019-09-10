@@ -135,3 +135,87 @@
    memcache_full_cleanup: False
    # 允许收集 memcache 状态并且将它记录在 `debug` 日志级别.
    memcache_debug: False
+
+   # 在给定的返回器中储存返回值.
+   # 设定此值的同时要指定返回器, 可选返回器有 elasticsearch, etcd, memcache, mongo,
+   # mysql, postgres, redis, smtp, sqlite3, syslog, and xmpp 等
+   event_return: mysql
+
+   # 在繁忙的系统上，启用事件返回会给返回者的存储系统带来相当大的负载;
+   # 事件可以在主服务器上排队, 并使用单个事务以批处理的方式存储多个事件.
+   # 默认情况下, 事件不排队.
+   event_return_queue: 0
+
+   # 仅返回与白名单中的标记匹配的事件, 支持全局匹配.
+   event_return_whitelist:
+     - salt/master/a_tag
+     - salt/run/*/ret
+
+   # 储存所有不在黑名单中的事件返回, 支持全局匹配.
+   event_return_blacklist:
+     - salt/master/not_this_tag
+      - salt/wheel/*/ret
+
+   # 传递非常大的事件会导致消耗大量内存.
+   # 此值调整 master 总线上允许的最大消息大小
+   # 该值以字节表示;
+   max_event_size: 1048576
+
+   # Windows 平台缺少 POSIX IPC, 必须依赖较慢的基于 TCP 的进程间通信.
+   # 在此类系统上, 将 ipc_mode 设置为 'tcp'
+   ipc_mode: ipc
+
+   # 当 ipc_mode 被设置为 tcp 时, 覆盖 minion 使用的默认 TCP 端口;
+   tcp_master_pub_port: 4510
+   tcp_master_pull_port: 4511
+
+   # 默认情况下, master 的 AES 密钥每 24 小时循环一次.
+   # 下一个跟在密钥循环后的命令将会触发一个来自 minion 的密钥刷新,
+   # 这将导致在密钥刷新后 minions 不会响应第一个命令.
+   #
+   # 将 `ping_on_rotate` 设置为 `True`, 来告诉 master 在 AES 密钥刷新后
+   # 立即 ping 所有的 minions.
+   # 这应该可以缓解这样一个问题: 在一个密钥被循环之后, minion 开始似乎没有响应;
+   # 请注意, `ping_on_rotate` 可能会在 minions 重连时的密钥循环事件之后,
+   # 立即对 master 造成高负载.
+   # 仔细想想, 如果这个 salt master 管理着大量的 minions.
+   #
+   # 如果禁用, 建议通过使用 'key' 标记侦听 'aes_key_rotate'
+   # 事件并采取适当的操作来处理此事件.
+   ping_on_rotate: False
+
+   # 默认情况下, 当 minion 的密钥被删除后, master 会删除这个 minion 的数据.
+   # 为了保留被删除密钥的 minion 的缓存, 把 `preserve_minion_cache` 设为 `True`.
+   # 警告: 如果受到攻击的 minons 使用之前被删除的 minion ID 进行身份验证, 可能有安全隐患.
+   preserve_minion_cache: False
+
+   # 允许或拒绝 minions 请求它们自己的密钥吊销.
+   allow_minion_key_revoke: True
+
+   # 如果在大批量的安装中使用了 `max_minion`, master 可能会遇到高负载的情况,
+   # 因为 master 不得不在每次的身份验证中检查已连接的 minion 的数量.
+   # 此缓存向所有的 MWorker 进程提供所有已连接的 minion 的 ID,
+   # 且极大地提高了 `max_minons` 的性能.
+   con_cache: False
+
+   # master 能够包含来自其它文件的配置文件.
+   # 向此选项传递一个路径列表来开启这个功能.
+   # 路径可以是相对路径, 也可以是绝对路径; 如果是相对路径,
+   # 它们将被认为是相对于主 master 配置文件 ( 就是这个文件 ) 存在的目录.
+   # 路径可以使用 shell 风格的通配符.
+   # 如果没有与传递给此选项的路径相匹配的文件, 那么 master 将会记录一个警告消息.
+   # 从某个其它路径包含一个配置文件:
+   include: /etc/salt/extra_config
+   # 从一些文件和目录包含配置:
+   include:
+     - /etc/salt/extra_config
+   # 这里的配置风格应该是 YAML 的, 即缩进两格和连字符后空一格.
+
+大规模调整设定
+==============
+
+.. code-block:: shell
+
+   # 最大打开文件数
+   # 每一个连接到 master 的 minion `至少` 使用一个文件描述符, master 订阅连接.
+   # 

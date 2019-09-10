@@ -217,5 +217,11 @@
 .. code-block:: shell
 
    # 最大打开文件数
+   #
    # 每一个连接到 master 的 minion `至少` 使用一个文件描述符, master 订阅连接.
+   # 如果有足够多的 minion 连接, 你可能会在控制台上看到:
+   # (接着 salt-master 崩溃)
+   # 太多的打开文件 ( tcp_listener.cpp:335)
+   # 中止
+   #
    # 

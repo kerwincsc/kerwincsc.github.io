@@ -42,4 +42,13 @@ MacOS 系统的启动项会以 ``.plist`` 的文件存在于以下目录中:
 
   - 当 ``RunAtLoad = true`` 时: 程序在启动时会运行一次, 然后等待在有需要的时候运行;
 
-  - 当 ``SuccessfulExit = true /false`` 时, 不论
+  - 当 ``SuccessfulExit = true /false`` 时, 不论 ``RunAtLoad/SuccessfulExit``
+    值是什么都会在启动时运行且一直保持运行状态;
+
+所以, 如果我们不希望开机自动运行, 则需要:
+
+- 找到对应程序的 **.plist** 文件
+  
+- 删除 **SuccessfulExit** 属性
+
+- 将 **RunAtLoad / KeepAlive** 均设为 **<false/>**

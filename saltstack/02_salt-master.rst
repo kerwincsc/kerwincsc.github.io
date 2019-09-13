@@ -589,3 +589,253 @@ Master 模块管理
 
 .. code-block:: shell
 
+   # Salt 运行一个以 zeromq 写成的轻量级的文件服务器向 minion 传送文件
+   # 此文件服务器内置于 master 守护进程中, 不需要专用端口
+
+   # 文件服务器工作在传递给 master 的环境中, 每个环境可以有多个根目录,
+   # 多个文件根目录中的子目录不能匹配, 否则下载的文件将无法得到可靠的保证.
+   # 需要一个基本环境来存放顶级文件.
+   # 示例:
+   # file_roots:
+   #   base:
+   #     - /srv/salt/
+   #   dev:
+   #     - /srv/salt/dev/services
+   #     - /srv/salt/dev/states
+   #   prod:
+   #     - /srv/salt/prod/services
+   #     - /srv/salt/prod/states
+   file_roots:
+     base:
+       - /srv/salt
+
+   # `master_roots` 配置状态编译器使用的 file_roots 字典的一个仅 master 副本
+   # (a master-only copy)
+   master_roots: /srv/salt-master
+
+   # 当使用多个环境 ( 每个环境都有自己的顶级文件 ) 时, 默认行为是无序合并.
+   # 为了防止 top 文件被合并在一起而只使用来自请求环境的 top 文件, 请将此值设为 *same*
+   top_file_merging_strategy: merge # top file 合并策略
+
+   # 要指定环境合并的顺序, 请在 `env_order` 选项中设置顺序.
+   # 给定一个冲突, 最后一个匹配值将胜出.
+   env_order: ['base', 'dev', 'prod']
+
+   # 如果把 `top_file_merging_strategy` 设置为 *same* 且环境不包含一个 top 文件,
+   # 则在环境中由 `default_top` 指定的 top 文件代替使用.
+   default_top: base
+
+   # `hash_type` 是在 master 服务器上发现文件的散列时使用的散列.
+   # 默认值是 *fsha256*, 但是也支持 md5, sha1, sha224, sha384 和 sha512
+   #
+   # 警告: 虽然 md5 和 sha1 也得到了支持, 但是不要使用它们,
+   # 因为它们很有可能发生冲突, 从而造成安全漏洞.
+   #
+   # 在更改此值之前, 应停止 master 服务器, 并清除所有 salt 缓存.
+   hash_type: sha256
+
+   # 可以在此调节文件服务器的缓冲大小
+   file_buffer_size: 1048576
+
+   # 一个正则表达式 ( 或一组表达式 ), 在将模块和状态同步到 minion 之前,
+   # 将与文件路径匹配. 这包括受 file.recurese 状态影响的文件.
+   # 例如, 如果您在 subversion 中管理自定义模块和状态,
+   # 并且不想所有的 '.svn' 文件夹和内容同步到您的 minion,
+   # 你可以将其设置为 '/\.svn($|/)'. 默认情况下不会忽略任何内容.
+   file_ignore_regex:
+     - '/\.svn($|/)' # /.svn 或 /.svn/
+     - '/\.git($|/)' # /.git 或 /.git/
+
+   # 一个全局文件 ( 或全局文件列表) 在将模块和状态同步到 minion 之前,
+   # 将与文件路径匹配. 这与上面的 `file_ignore_regex` 类似,
+   # 但它在 globs 上而不是 regex 上工作. 默认情况下不忽略任何内容.
+   file_ignore_glob:
+     - '*.pyc'
+     - '*/somfolder/*.bak'
+     - '*.swp'
+
+   # 文件服务器后端
+   #
+   # Salt 支持模块化的文件服务器后端系统,
+   # 该系统允许 Salt master 直接链接到第三方系统, 收集和管理 minion 可用的文件.
+   # 可以配置多个后端, 并将按照定义后端的顺序搜索所请求的文件.
+   # 默认设置只启用使用 "file_roots" 选项的标准后端 "roots".
+   fileserver_backend:
+     - roots
+   #
+   # 若要使用多个后端, 请按搜索顺序列出它们:
+   fileserver_backend:
+     - git
+     - roots
+   # 如果你不希望 file_server 在遍历文件系统树时跟随符号链接,
+   # 请取消下面这一行的注释. 默认设置为 *True*.
+   # 目前, 这只适用于默认的 `roots` fileserver_backend.
+   fileserver_followsymlinks: False
+   #
+   # 如果不希望符号链接被视为它们指向的文件, 请取消注释下面的行.
+   # 默认情况下, 此值设置为 *False*. 通过取消对下面一行的注释,
+   # 在 master 上列出文件时检测到的任何符号链接都不会返回给 minion.
+   fileserver_ignoresymlinks: True
+   #
+   # 默认情况下, salt 文件服务器完全递归到所有定义的环境中,
+   # 以尝试查找文件. 若要限制此行为,
+   # 使文件服务器只遍历包含 SLS 文件和特殊 salt 目录 ( 如 _modules ) 的目录,
+   # 请启用以下选项. 对于文件根目录中有大量文件且性能受到影响的安装,
+   # 这可能非常有用. 默认值为 *False*.
+   fileserver_limit_traversal: False
+   #
+   # 文件服务器可以在每次更新文件服务器时关闭事件, 这些事件在默认情况下是禁用的,
+   # 但是可以通过将此标志设置为 *True* 轻松打开;
+   fileserver_events: False
+
+   # Git 文件服务器端配置
+   #
+   # 用来指定用于 gitfs 的提供程序的可选参数.
+   # 必须是 *pygit2* 或 *gitpython*.
+   # 如果未设置, 则将尝试二者 ( 按该顺序 ),
+   # 且已安装兼容版本的第一个将是所使用的提供程序.
+   #
+   gitfs_provider: pygit2
+
+   # 与 `gitfs_password` 一起, 用来给 HTTPS 远程验证身份.
+   gitfs_user: ''
+
+   # 与 `gitfs_user`, 用来给 HTTPS 远程验证身份.
+   # 如果仓库不使用身份验证, 就不需要此参数.
+   gitfs_password: ''
+
+   # 默认情况下, Salt 不会对 HTTP( 不是 HTTPS) 远程进行身份验证.
+   # 此参数在 HTTP 启用身份验证. 启用此项, 风险自负. ( 有什么风险 ?)
+   gitfs_insecure_auth: False
+
+   # 与 `gitfs_privkey` 一起 ( 且 `gitfs_passphrase` 是可选的 ),
+   # 用来对远程 SSH 进行身份验证. 远程 SSH 需要此参数 ( 或者每远程对应 )
+   gitfs_pubkey: ''
+
+   # 与 `gitfs_pubkey` 一起 ( 且 `gitfs_passphrase` 是可选的 ),
+   # 用来对远程 SSH 进行身份验证. 远程 SSH 需要此参数 ( 或者每远程对应 )
+   gitfs_privkey: ''
+
+   # 此参数是可选的, 仅当用于身份验证的 ssh 密钥受密码短语保护时才需要;
+   gitfs_passphrase: ''
+
+   # 使用 git 文件服务器后端时, 至少需要定义一个远程 git.
+   # 运行 salt master 的用户将需要 repo 的读取权限.
+   #
+   # 搜索 repo 以找到客户机请求的文件, 第一个拥有该文件的 repo 将返回该文件.
+   # 当使用 git 后端时, 分支和标记被转换为 salt 环境.
+   # 注意: *file://* repos 将被视为远程文件,
+   # 因此要使用的 ref 必须作为 *local* refs 存在于该 repo 中.
+   gitfs_remotes:
+     - git://github.com/saltstack/salt-states.git
+     - file:///var/git/saltmaster
+   # `gitfs_ssl_verify` 选项明确规定, 当连接到 gitfs 后端时, 是否忽略 ssl 证书错误.
+   # 如果您使用的是使用自签名证书的 git 后端, 则可能需要将此设置为 *False*,
+   # 但请记住, 将此标志设置为默认值 *True* 以外的任何值都是安全问题,
+   # 你可能需要尝试使用 ssh 传输.
+   gitfs_ssl_verify: True
+   #
+   # `gitfs_root` 选项允许从存储库中的子目录提供文件.
+   # 路径是相对于存储库的根定义的, 默认为存储库的根.
+   gitfs_root: somefolder/otherfolder
+   #
+   # gitfs remotes 获取的 refspecs
+   gitfs_refspecs:
+     - '+refs/heads/*:refs/remotes/origin/*'
+     - '+refs/tags/*:refs/tags/*'
+
+Pillar 设置
+===========
+
+.. code-block:: shell
+
+   # Salt Pillars 允许建立全局数据,
+   # 这些数据可以基于 minion grain 过滤有选择地提供给不同的 minion.
+   # Salt Pillar 的布局方式与文件服务器相同,
+   # 包括环境, 顶级文件和 sls 文件.
+   # 但是, Pillar 数据不需要采用 highstate 格式, 通常只是键 / 值对.
+   pillar_roots:
+     base:
+       - /srv/pillar
+
+   ext_pillar:
+     - hiera: /etc/hiera.yaml
+     - cmd_yaml: cat /etc/salt/yaml
+
+   # 在 pillar 编译期间要递归解密的路径列表.
+   # 此列表中的项可以格式化为简单字符串或键 / 值对,
+   # 此键是 pillar 位置, 此值是用于 pillar 解密的渲染器.
+   # 如果使用前者 ( 简单的字符串 ), 则将使用 `decrypt_pillar_default` 指定的渲染程序.
+   decrypt_pillar:
+     - 'foo:bar': gpg
+     - 'lorem:ipsum:dolor'
+
+   # 在 `decrypt_pillar` 选项中`用来区分嵌套数据结构的分隔符.
+   decrypt_pillar_delimiter: ':'
+
+   # 用于解密的默认渲染器 ( 如果没有为在 `decrypt_pillar` 中的给定 pillar 密钥指定一个 )
+   decrypt_pillar_default: gpg
+
+   # 允许用来给 pillar 解密的渲染器列表.
+   decrypt_pillar_renderers:
+     - gpg
+
+   # `ext_pillar_first` 选项允许在文件系统 pillar 之前填充外部 pillar 源.
+   # 这允许从 `ext_pillar` 定位文件系统 pillar.
+   ext_pillar_first: False # 不明白这段配置
+
+   # 允许使用 `pillar.ext` 按需使用外部 pillar
+   on_demand_ext_pillar:
+     - libvirt
+     - virtkey
+
+   # `pillar_gitfs_ssl_verify` 选项指定在连接 pillar gitfs 后端时
+   # 是否忽略 ssl 证书错误. 如果您使用的是使用自签名证书的 git 后端,
+   # 则可能需要将其设置为 false, 但请记住,
+   # 将此标志设置为除默认值 *True* 以外的任何值都是安全问题,
+   # 你可能需要尝试使用 ssh 传输
+   pillar_gitfs_ssl_verify: True
+
+   # `pillar_opts` 选项将 master 配置文件数据添加到
+   # 在 pillar 中名为 "master" 的字典中.
+   # 这用于在 master 配置文件中设置简单的配置, 然后可以在 minion 上使用.
+   pillar_opts: False
+
+   # `pillar_safe_render_error` 选项防止 master 传递 pillar 渲染错误给 minion.
+   # 这是默认设置的, 因为错误可能包含模板数据, 它将提供它不应该拥有的 minion 信息,
+   # 比如密码! 当设置为 *True* 时, 错误消息将只显示:
+   #   Rendering SLS 'my.sls' failed. Please see master log for details.
+   pillar_safe_render_error: True
+
+   # `pillar_source_merging_strategy` 选项允许你配置不同源之间的合并策略.
+   # 它接受五个值: none, recurse, aggregate, overwrite 或 smart:
+   # - none 不会做任何合并;
+   # - recurse 将递归地合并数据映射.
+   # - aggregate 指示在源之间使用 `yamlex` 渲染器聚合元素.
+   # - overwrite 将按照处理元素的顺序覆盖元素. 这是 2014.1 及更早版本的行为.
+   # - smart 根据 "renderer" 设置猜测最佳策略, 并将其作为默认值.
+   pillar_source_merging_strategy: smart
+
+   # 通过聚合而不是替换列表, 递归地合并列表.
+   pillar_merge_lists: False
+
+   # 将此选项设置为 *True*, 以强制 pillarenv 在运行状态时与有效
+   # saltenv 相同. 如果指定了 pillarenv, 此选项将被忽略.
+   pillarenv_from_saltenv: False
+
+   # 将此选项设置为 *True*, 以在尝试从 pillar 检索命名值失败时
+   # 强制引发 "keyerror". 当此选项设置为 *False* 时,
+   # 失败的尝试将返回空字符串. 默认值为 *False*.
+   pillar_raise_on_missing: False
+
+   # Git 外部的 Pillar (git_pillar) 配置选项
+   #
+   #
+
+
+
+
+
+
+
+

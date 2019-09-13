@@ -830,7 +830,39 @@ Pillar 设置
 
    # Git 外部的 Pillar (git_pillar) 配置选项
    #
-   #
+   # 指定用于 git_pillar 的提供程序.
+   # 必须是 *pygit2* 或 *gitpython*.
+   # 如果未设置, 则将按相同的顺序尝试这两个版本,
+   # 且安装了兼容版本的第一个将是所使用的提供程序.
+   git_pillar_provider: pygit2
+
+   # 如果所需的分支匹配这个值, 并且 `git_pillar` 配置中省略了环境,
+   # 那么 git_pillar 远程的环境将是基础环境.
+   git_pillar_base: master
+
+   # 如果从 `git_pillar` 远程省略了这个分支, 那么将使用这个分支
+   git_pillar_branch: master
+
+   # `git_pillar` remote 使用的环境.
+   # 这通常派生自分支 / 标记 ( 或每个远程的 env 参数 ),
+   # 但如果设置了该参数, 将覆盖从分支 / 标记名称派生 env 的过程.
+   git_pillar_env: ''
+
+   # 相对于 `git_pillar` top 文件和 sls 文件所在存储库的根目录的路径.
+   git_pillar_root: ''
+
+   # 指定在联系远程存储库时是否忽略 SSL 证书错误
+   git_pillar_ssl_verify: False
+
+   # 当设置为 *False* 时, 如果 `git_pillar` remote 有一个更新 / 签出锁,
+   # 并且写入该锁的 pid 没有在主机上运行, 则该锁文件将被自动清除, 并获得一个新锁.
+   git_pillar_global_lock: True
+
+
+
+
+
+
 
 
 

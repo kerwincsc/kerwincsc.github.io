@@ -916,9 +916,303 @@ Pillar 设置
          它使用一个纯 python 内存数据结构, 以获得最大的性能.
 	 不过, 有几点需要注意. 首先, 由于每个 master worker 都包含自己的内存缓存,
 	 所以无法保证 minion 请求之间的缓存一致性.
-	 这在柱子很少变化的情况下效果最好。其次，也许更重要的是，这意味着任何能够检查“盐大师”内存的进程都可以访问未加密的柱子!这可能意味着巨大的安全风险。
+	 这在 pillar 很少变化的情况下效果最好. 其次, 也许更重要的是,
+	 这意味着任何能够检查 "salt-master" 内存的进程都可以访问未加密的 pillar.
+	 这可能意味着巨大的安全风险.
+   pillar_cache_backend: disk
 
+Reactor( 反应器 ) 设置
+======================
 
+.. code-block:: shell
 
+   # 定义一个 salt reactor. 参见 https://docs.saltstack.com/en/latest/topics/reactor/
+   reactor: []
 
+   # reactor 配置的缓存的 TTL ( 生存时间 )
+   reactor_refresh_interval: 60
 
+   # 在 reactor 中为 runner / wheel 配置 worker 的数量
+   reactor_worker_threads: 10
+
+   # 为 reactor 中的 worker 定义队列大小
+   reactor_worker_hwm: 10000
+
+Syndic ( 代理 ) 设置
+====================
+
+.. code-block:: shell
+
+   # Salt Syndic 用于从更高的 master 向 master 传递命令.
+   # 使用 Syndic 很简单. 如果这是一个在其下面将有 Syndic 服务器的 master,
+   # 则将 `order_masters` 设置设置为 *True*.
+   #
+   # 如果这是一个将运行 Syndic 守护进程进行传递的 master 服务器,
+   # 则需要将 "syndic_master" 项设置为从中接收命令的 master 服务器的位置.
+   #
+   # 如果这个 master 将命令较低的 master 的 syndic 接口,
+   # 那么将 `order_masters` 设置设置为 *True*.
+   order_master: False
+
+   # 如果此 master 正运行一个 Salt Syndic 守护进程,
+   # `syndic_master` 将会告诉 master 从哪儿接收命令.
+   syndic_master: masterofmasters
+
+   # 这是 *MasterofMaster* 的 'ret_port' ( 返回端口, 应该就是返回数据的端口 )
+   syndic_master_port: 4506
+
+   # syndic 守护进程的 PID 文件
+   syndic_pidfiel: /var/run/salt-syndic.pid
+
+   # syndic 守护进程的 log 文件
+   syndic_log_file: /var/log/salt/syndic
+
+   # 当连接到 masters 中的一个 master 失败时, 多 syndic 的行为.
+   # 可以指定为 ``random`` (default) 或者 ``ordered``.
+   # 如果设置为 `random`, master 将按随机顺序迭代;
+   # 如果设置为 `odered`, 使用配置好的顺序.
+   syndic_failover: random
+
+   # Salt 客户端等待其他 Syndics 在放弃之前签入其预期的 minion 列表的秒数
+   syndic_wait: 5  # 不太明白
+
+对等发布设置
+============
+
+.. code-block:: shell
+
+   # Salt minion 可以向其它 minion 发送命令, 但是仅当其它 minion 允许时.
+   # "对等发布" 默认情况下是禁用的, 当启用它时, 它为特定的 minions 和特定的命令启用.
+   # 这允许基于单个 minion 对命令进行安全分区.
+
+   # 此配置使用正则表达式来匹配 minion, 使用一个正则表达式的列表来匹配函数.
+   # 下面将允许认证为 foo.example.com 的 minion 执行来自 test 和 pkg 模块的函数.
+   peer:
+     foo.example.com:
+       - test.*
+       - pkg.*
+   #
+   # 这将允许所有 minions 执行所有的命令:
+   peer:
+     -*:
+       - .*
+   #
+   # 不推荐, 因为它将允许任何在任一单台 minion 上获得 root 权限人
+   # 立即在所有的 minions 拥有 root 权限.
+
+   #  minion 也可以执行 Salt 的 runner ( 运行器? ).
+   # 由于从该 minion 中执行 Runner 可能会被视为一种安全风险, 因此需要启用它.
+   # 此设置的功能与对等设置相同, 只是它打开了 runner 而不是模块功能.
+   #
+   # 默认情况下, 所有对等运行器支持都是关闭的, 必须在使用之前启用.
+   # 这将为所有的 minions 启用所有的对等 runners.
+   peer_run:
+     .*:
+       - .*
+   #
+   # 为 foo.example.com minion 仅启用 manage.up runner
+   peer_run:
+     foo.example.com:
+       -manage.up
+
+Mine 设置
+=========
+
+.. code-block:: shell
+
+   # 限制 mine.get 从 minion 那里获取访问权限.
+   # 默认情况下, 任何 minion 都有从 master 缓存获取所有 mine 数据的完全访问权.
+   # 在下面的 acl 定义中，只允许 pcre 匹配.
+   mine_get:
+     .*:
+       - .*
+   #
+   # 以下的示例启用 foo.example.com minion 仅来获取 'network.interfaces' mine 数据,
+   # web* minions 获取所有的 network.* 和 disk.* mine 数据,
+   # 所有其他的 minions 将不会获取任何的 mine 数据.
+   mine_get:
+     foo.example.com:
+       - network.interfaces
+     web.*:
+       - network.*
+       - disk.*
+
+日志设置
+========
+
+.. code-block:: shell
+
+   # master 日志文件的位置
+   # master 日志可以发送到常规文件, 本地路径名或网络位置.
+   # 当配置为使用 rsyslogd 时, 并且将 rsyslogd 配置为网络日志时,
+   # 远程日志工作得最好. (比如: ``file://dev/log``)
+   # URI 格式为:
+   # <file|upd|tcp>://<host|socketpath>:<port-if-required>/<log-facility>
+   # log_file: /var/log/salt/master
+   # log_file: file:///dev/log
+   # log_file: udp: //loghost:10514
+   log_file: /var/log/salt/master
+   key_logfile: /var/log/salt/key
+
+   # 发送给终端的消息等级.
+   # 可以是 'garbage', 'trace', 'debug', 'info', 'warning', 'error', 'critical'.
+   #
+   # 以下日志级别被认为是 *不安全的* 并且可以会记录敏感数据:
+   # ['garbage', 'trace', 'debug']
+   log_level: warning
+
+   # 发送给日志文件的消息等级.
+   # 可以是 'garbage', 'trace', 'debug', 'info', 'warning', 'error', 'critical'
+   # 如果使用 `log_granular_levels`, 则必须设置成最高期望的级别.
+   log_level_logfile: warning
+
+   # 在日志消息中使用的日期和时间格式.
+   # 允许使用的日期 / 时间格式可以参考
+   # http://docs.python.org/library/time.html#time.strftime
+   log_datefmt: '%H:%M:%S'
+   log_datefmt_logfile: '%Y-%m-%d %H:%M:%S'
+
+   # 控制台日志消息格式. 允许使用的选项可参考
+   # http://docs.python.org/library/logging.html#logrecord-attributes
+   #
+   # 控制台日志颜色由这些附加的格式化程序指定:
+   # %(colorlevel)s
+   # %(colorname)s
+   # %(colorprocess)s
+   # %(colormsg)s
+   #
+   # 由于希望在消息的着色中包含周围的括号'['和'], 所以这些颜色格式化器还包括填充.
+   # Color LogRecord 属性仅用于控制台日志记录.
+   #
+   log_fmt_console: '%(colorlevel)s %(colormsg)s'
+   log_fmt_console: '[%(levelname)-8s] %(message)s'
+   #
+   log_fmt_logfile: '%(asctime)s,%(msecs)03d [%(name)-17s][%(levelname)-8s] %(message)s'
+
+   # 这被用于更具体地控制日志级别. 此例把主要的 Salt 库设置在 'warning' 级别,
+   # 但是把 'salt.modules' 设定在 'debug' 级别.
+   # log_granular_levels:
+   #  'salt': 'warning'
+   #  'salt.modules': 'debug'
+   #
+   log_granular_levels: {}
+
+节点组
+======
+
+.. code-block:: shell
+
+   # 节点组允许对下属节点进行逻辑分组. 组由组名和复合目标组成.
+   # Nodgroups 可以使用 "N@" 分类器引用其他节点组. 确保没有循环引用;
+   #
+   nodegroups:
+     group1: 'L@foo.domain.com,bar.domain.com,baz.domain.com or bl*.domain.com'
+     group2: 'G@os:Debian and foo.domain.com'
+     group3: 'G@os:Debian and N@group1'
+     group4:
+       - 'G@foo:bar'
+       - 'or'
+       - 'G@foo:baz'
+
+集群范围设置
+============
+
+.. code-block:: shell
+
+   # 提供群集信息的服务器范围 ( 和可选端口 )
+   # https://github.com/ytoolshed/range/wiki/%22yamlfile%22-module-file-spec
+   range_server: range:80
+
+Windows 软件库设置
+==================
+
+.. code-block:: shell
+
+   # master 上 repo 的位置
+   winrepo_dir_ng: '/srv/salt/win/repo-ng'
+   #
+   # 包含本地库的 git 仓库的列表:
+   winrepo_remotes_ng:
+     - 'https://github.com/saltstack/salt-winrepo-ng.git'
+
+Windows 软件库设置 - 2015.8 以前
+================================
+
+.. code-block:: shell
+
+   # 给 2015.8 以前的 windows minions 保留的 repo 设置
+   #
+   # master 上 repo 的位置
+   winrepo_dir: '/srv/salt/win/repo'
+   #
+   # master 的库缓存文件的位置:
+   winrepo_mastercachefile: '/srv/salt/win/repo/winrepo.p'
+   #
+   # 包含本地库的 git 仓库的列表:
+   winrepo_remotes:
+     - 'https://github.com/saltstack/salt-winrepo.git'
+
+   # 通过 winrepo 远程取回的 refspecs
+   winrepo_refspecs:
+     - '+refs/heads/*:refs/remotes/origin/*'
+     - '+refs/tags/*:refs/tags/*'
+
+Returner( 返回器 ) 设置
+=======================
+
+.. code-block:: shell
+
+   # 哪个返回器将用于 minions 的结果
+   return: mysql
+
+其它设置
+========
+
+.. code-block:: shell
+
+   # 过滤事件标记的默认匹配类型: startswith, endswith, find, regex, fnmatch
+   event_match_type: startswith
+
+   # 保存 runner 返回到作业缓存
+   runner_returns: True
+
+   # 在为 Salt-SSH 或其他目的生成任何可用的 python 第三方模块时,
+   # 将它们永久地包含在精简和最小 salt 中.
+   # 这些模块应该根据它们在 python 中实际导入的名称来命名.
+   # 参数的值可以是一个模块, 也可以是以逗号分隔的参数列表.
+   thin_extra_mods: foo,bar
+   min_extra_mods: foo,bar,baz
+
+保活 (keepalive) 设置
+=====================
+
+.. code-block:: shell
+
+   # 警告: 如果在 salt master 上设置 TCP keepalives 失败,
+   # 则在连接丢失或其主机在未首先关闭套接字的情况下被终止时,
+   # 可能无法检测到某个 minion 的丢失.
+   # Salt 的 Presence System ( 存在系统 )
+   # 依赖于这个连接状态来知道一个 minion 是否 "存在".
+   # 如果操作系统支持, ZeroMQ 现在支持配置 SO_KEEPALIVE.
+   # 如果 minion 和 master 服务器之间的连接通过状态跟踪设备 ( 如防火墙或 VPN 网关 ),
+   # 则可能会有在不通知任何一方其连接已被断开的情况下, 断开 master 服务器和 minion 的连接.
+   # 启用 TCP keepalives 可以防止这种情况发生.
+
+   # 在 Linux 上, TCP Keepalives, enable (1 或 True), disable ( 0 或 False )
+   # 或保留操作系统默认值 ( -1 ) 的总体状态通常为 disabled. 默认为真, 已启用.
+   tcp_keepalive: True
+
+   # 以秒来算, 第一个 keepalive 被发送前应该有多长时间.
+   # 默认值 300, 在 5 分钟后发送第一个 keepalive,
+   # Linux 上的 OS 默认值 ( -1 ) 通常为 7200 秒
+   # 请参见 /proc/sys/net/ipv4/tcp_keepalive_time.
+   tcp_keepalive_idle: 300
+
+   # 需要多少个丢失的探测来考虑连接丢失. 默认 -1 以使用 OS 默认值,  通常为 9,
+   # 请参见 /proc/sys/net/ipv4/tcp_keepalive_probes
+   tcp_keepalive_cnt: -1
+
+   # 以秒计算, 在第一个 keepalive 后多长时间后发送 keepalive.
+   # 默认是 -1 以使用 OS 默认值, 在 Linux 通常是 75 秒
+   # 查看 /proc/sys/net/ipv4/tcp_keepalive_intvl
+   tcp_keepalive_intvl: 0

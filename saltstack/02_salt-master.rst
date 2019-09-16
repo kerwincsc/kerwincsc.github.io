@@ -858,14 +858,65 @@ Pillar 设置
    # 并且写入该锁的 pid 没有在主机上运行, 则该锁文件将被自动清除, 并获得一个新锁.
    git_pillar_global_lock: True
 
+   # Git 外部 Pillar 身份验证选项
+   #
+   # 与 `git_pillar_password` 一起被用于对 HTTPS 远程进行身份验证
+   git_pillar_user: ''
 
+   # 与 `git_pillar_user` 一起, 被用于对 HTTPS 远程进行身份验证
+   # 如果远程库没有使用身份验证, 就不需要这个参数
+   git_pillar_password: ''
 
+   # 默认情况下, Salt 不会对 HTTP ( 不是 HTTPS ) 远程进行身价验证.
+   # 此参数在 HTTP 上开启身份验证.
+   git_pillar_insecure_auth: False
 
+   # 与 `git_pillar_privkey` ( `git_pillar_passphrase` 是可选的 ) 一起,
+   # 被用于对 SSH 远程进行身份验证.
+   git_pillar_pubkey: ''
 
+   # 与 `git_pillar_pubkey` ( `git_pillar_passphrase` 是可选的 ) 一起,
+   # 被用于对 SSH 远程进行身份验证.
+   git_pillar_privkey: ''
 
+   # 此参数是可选的, 仅当 用于身份验证的 SSH 密钥被密码保护时.
+   git_pillar_passphrase: ''
 
+   # 通过 `git_pillar` 远程获取的 `refspecs`
+   git_pillar_refspecs:
+     - '+refs/heads/*:refs/remotes/origin/*'
+     - '+refs/tags/*:refs/tags/*'
 
+   # master 服务器可以在本地缓存 pillars, 以避免在每次请求时
+   # 不得不为每个 minion 渲染 pillar 的开销.
+   # 只有在已知 pillar 渲染时间不令人满意
+   # 且已经解决了将 pillar 存储在 master 缓存中伴随的安全性问题的
+   # 情况下, 才应该启用该特性.
+   #
+   # 启用此功能时, 请务必阅读附加的 "支柱缓存" 配置选项,
+   # 以完全了解可调参数及其含义;
+   #
+   # 注意: 设置 `pillar_cache: True` 对使用 pillar 的目标 minion 没有影响.
+   # 参见 `https://docs.saltstack.com/en/latest/topics/targeting/pillar.html`
+   pillar_cache: False
 
+   # 当且仅当 master 缓存设置了 `pillar_cache:true`,
+   # 缓存 TTL 控制缓存被 master 节点认为无效并重新编译和
+   # 存储新柱子之前的时间 ( 以秒为单位 ).
+   pillar_cache_ttl: 3600 # 一小时
+
+   # 当且仅当 master 服务器设置了 `pillar_cache: True` 时,
+   # 可以使用几个存储提供程序之一.
+   #
+   # `disk`: 默认的存储后端. 这个将渲染的 pillar 缓存到 master 缓存.
+   #         为了提高速度, 渲染了的 pillar 被序列化和反序列化为 msgpack结构.
+   #         请注意, 柱子是 **未加密** 存储的.
+   #         确保 master 缓存具有适当的权限设置. ( 提供相同的默认值 )
+   # `memory`: [ 实验性的 ] 一个可选的后端 pillar 缓存,
+         它使用一个纯 python 内存数据结构, 以获得最大的性能.
+	 不过, 有几点需要注意. 首先, 由于每个 master worker 都包含自己的内存缓存,
+	 所以无法保证 minion 请求之间的缓存一致性.
+	 这在柱子很少变化的情况下效果最好。其次，也许更重要的是，这意味着任何能够检查“盐大师”内存的进程都可以访问未加密的柱子!这可能意味着巨大的安全风险。
 
 
 

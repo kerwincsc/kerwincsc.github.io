@@ -142,3 +142,41 @@
    # 此数据可能包含敏感数据, 因此应受到相应保护.
    cachedir: /var/cache/salt/minion
 
+   # 将 minion_id 追加到这些目录.
+   # 帮助在同一台计算机上运行多个代理和 minion.
+   # 列表中允许的元素: pki_dir, cachedir, extension_modules
+   # 通常不需要, 除非在同一台计算机上运行多个代理和 / 或 minion
+   # 默认为代理的是 ['cachedir'], []( 空列表 ) 为常规 minion
+   append_minionid_config_dirs:
+
+   # 启动时验证并设置配置目录的权限;
+   verify_env: True
+
+   # minion 可以本地缓存发送给它的作业返回的数据,
+   # 这是跟踪 minion 执行的作业 ( 在 minion 一侧 ) 的好方法.
+   # 默认情况下, 此功能被禁用, 若要启用, 请将缓存作业设置为 *True*
+   cache_jobs: False
+
+   # 设置用于持有 unix 套接字的目录
+   sock_dir: /var/run/salt/minion
+
+   # 当使用 lspci 和 / 或 dmidecode 填充 minion 的 grains 时,
+   # minion 可能需要一段时间才能启动.
+   # 如果您的 minion 不需要 GPU 硬件 grains, 请将此设置为 *False*
+
+   # 设置由 salt-call 命令使用的默认的输出器. 默认为 "nested".
+   output: nested
+
+   # 设置 `outputter_dirs` 选项, 来设置一个额外的目录列表来搜索 salt 输出器
+   outputter_dirs: []
+
+   # 默认情况下, 输出是彩色的. 把 `color` 值设为 *False* 来关闭彩色输出.
+   color: True
+
+   # 不要从嵌套的结果和状态输出中去掉彩色输出（ 默认为 *True*)
+   strip_colors: False
+
+   # 在 "cachedir"/file_backup 下相对于原始位置替换为 file.managed
+   # 和 file.recurse 并附加时间戳的备份文件。唯一有效的设置是“minion”。默认情况下禁用。
+
+

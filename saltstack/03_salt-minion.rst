@@ -163,7 +163,10 @@
    # 当使用 lspci 和 / 或 dmidecode 填充 minion 的 grains 时,
    # minion 可能需要一段时间才能启动.
    # 如果您的 minion 不需要 GPU 硬件 grains, 请将此设置为 *False*
+   enable_gpu_grains: True
 
+   
+   ####### 输出调整 ###################################################
    # 设置由 salt-call 命令使用的默认的输出器. 默认为 "nested".
    output: nested
 
@@ -176,7 +179,231 @@
    # 不要从嵌套的结果和状态输出中去掉彩色输出（ 默认为 *True*)
    strip_colors: False
 
-   # 在 "cachedir"/file_backup 下相对于原始位置替换为 file.managed
-   # 和 file.recurse 并附加时间戳的备份文件。唯一有效的设置是“minion”。默认情况下禁用。
+   # 备份相对他们的初始目录的 'cachedir'/file_backup 目录下被 file.managed
+   # 和 file.recurse 取代的且追加了时间戳的文件. 唯一有效的设置是 "minion".
+   # 默认情况下禁用.
+   #
+   # 或者, 这可以为状态文件中的每个文件指定
+   # /etc/ssh/sshd_config
+   #   file.managed:
+   #     - source: salt://ssh/sshd_config
+   #     - backup: minion
+   #
+   backup_mode: minion
 
+   # 当等待 master 接受 minion 的公钥时, salt将继续尝试重新连接, 直到成功.
+   # 这是这些重新连接尝试之间的时间, 以秒为单位.
+   acceptance_wait_time: 10
 
+   # 如果此值不为零, 重新连接尝试之间的时间每次迭代将增加 `acceptance_wait_time`
+   # 直至达到此最大值. 如果设置为零, 重新连接尝试之间的时间将保持不变.
+   acceptance_wait_time_max: 0
+
+   # 如果 master 拒绝了 minion 的公钥, 重试而不是退出.
+   # 拒绝的密钥将与等待接受处理相同.
+   rejected_retry: False
+
+   # 当 master 密钥更改时, minion 将尝试重新验证自己以接收新的 master 密钥.
+   # 在更大的环境中, 这可能会导致 master 上的 syn 泛滥,
+   # 因为所有的 minion 都试图立即重新验证.
+   # 要防止这种情况发生并让一个 minion 随机等待一段时间, 请使用此可选参数.
+   # 等待时间将是介于 0 和定义值之间的随机秒数.
+   random_reauth_delay: 60
+
+   # 为了避免当许多 minion 同时启动时 master 服务器过载, 可以设置一个随机延迟,
+   # 告诉 minion 在连接到 master 服务器之前等待. 这个值是一个随机数的秒数.
+   # 例如, 将此值设置为 60, 将选择在 0 秒到 60 秒之间启动时延迟的随机秒数.
+   # 设置为 "0" 将禁用此功能.
+   random_startup_delay: 0
+
+   # 当等待 master 接受 minion 的公钥时, salt 将继续尝试重新连接, 直到成功.
+   # 这是每次尝试的超时值 ( 秒 ). 此超时过期后, 在重试之前 minion
+   # 将等待 `acceptance_wait_time`, 除非你的 master 承受着异常沉重的负担,
+   # 否则这应该是默认的.
+   auth_timeout: 60
+
+   # 尝试验证时可接受的连续 SaltReqTimeoutError 数.
+   auth_tries: 7
+
+   # 在放弃前, 尝试连接到 master 的次数.
+   # 设为 -1 代表无限次尝试. 这允许 master 服务器有停机时间, 并且当它重新启动时,
+   # minion 可以重新连接到它. 在 "故障转移" 模式下, 它是每组 master 服务器的尝试次数.
+   # 在此模式下, 它每次尝试将循环遍历 master 列表.
+   #
+   # 这不同于 `auth_tries` 因为 `auth_tries` 尝试对单台 master 重新进行身份验证.
+   # `auth_tries` 的前提是您可以连接到 master, 但不能从它获得授权.
+   # 在给定的尝试中, `master_tries` 仍然会循环遍历所有 master,
+   # 因此, 如果您希望 master(s) 偶尔停机, 这是适当的.
+   master_tries: 1
+
+   # 在 `ping_interval` 期间如果因为 SaltReqtimeoutError 身份验证失败,
+   # 将会引发子 minion 进程重启.
+   auth_safemode: False
+
+   # ping Master 以确保连接存活 ( 按分钟算 ).
+   ping_interval: 0
+
+   # 如果 master 服务器更改了 IP 地址, 则自动恢复 minions. (DDNS)
+   #    auth_tries: 10
+   #    auth_safemode: False
+   #    ping_interval: 2
+   #
+   # 直到 ping 失败, Minions 才知道 master 消失了.
+   # 在 ping 失败之后, minion 将尝试进行身份验证并且可能会失败并导致重新启动.
+   # 当 minion 重启时, 将解析 master IP 并尝试去重连.
+
+   # 如果你对 syn-floods 没有任何问题, 请不要使用下面描述的三个 recon_* 设置,
+   # 保留默认设置就好.
+   #
+   # 如果套接字未连接 ( 比如, 如果 master 进程重新启动 ),
+   # 绑定到 master 发布接口的 ZeroMQ pull-socket 将尝试立刻重新连接.
+   # 在大型设置中, 这将使所有的 minion 立即重新连接,
+   # 这可能会淹没 master 服务器 ( ZeroMQ 默认值通常是 100 毫秒的延迟 ).
+   # 为了防止这种情况发生, 可使用这三种 recon_* 设置.
+   # recon_default: 套接字在尝试重新连接到 master 服务器之前应等待的时间间隔
+   #                (毫秒, 1000ms = 1 second)
+   # recon_max: 套接字应该等待的最大时间. 等待时间的每个间隔都是通过将上一个时间加倍来计算的
+   #            如果达到 recon_max, 则在 recon_default 时再次启动. 简短的例子:
+   #
+   #            reconnect 1: 套接字将等待 `recon_default` 毫秒
+   #            reconnect 2: `recon_default` * 2
+   #            reconnect 3: `recon_default` * 2 * 2
+   #            reconnect 4: 上一个值 * 2
+   #            reconnect 5: 上一个值 * 2
+   #            reconnect x: 如果值 >= recon_max, 它再次以 `recon_default` 开始
+   #
+   # recon_randomize:
+   #     在 minion 启动时生成一个随机地等待时间.
+   #     此等待时间会是一个在 `recon_default` 和 `recon_default + recon_max` 之间的随机值.
+   #     让所有的 minion 以相同的 `recon_default` 和
+   #     `recon_max` 值重新连接有点挫败了改变这些设置的目的.
+   #     如果所有的 minions 有相同的值并且你的设置相当大 ( 几千台 minions ),
+   #     它们仍然会淹没 master.  期望的行为是让所有的 minion 在时间范围内尝试重新连接.
+   #
+   # 如何使用这些设置的示例. 目标:  断开连接后, 让所有的 minion 在 60 秒内重新连接.
+   # recon_default: 1000
+   # recon_max: 59000
+   # recon_randomize: True
+   #
+   # 每个 minion 将有一个在 `recon_default` 和 `recon_default + recon_max` 间的随机值,
+   # 在此例中意味着, 在 1000ms 和 60000ms ( 或者说在 1s 和 60s 之间) 之间.
+   # 生成的随机值将会在每次尝试重连后成倍. 假设生成的随机值是 11 秒 (11000ms).
+   # reconnect 1: wait 11 seconds
+   # reconnect 2: wait 22 seconds # * 2
+   # reconnect 3: wait 33 seconds # * 3
+   # reconnect 4: wait 44 seconds # * 4
+   # reconnect 5: wait 55 seconds # * 5
+   # reconnect 6: 等待时间超出了 60s ( recon_default + recon_max )
+   # reconnect 7: wait 11 seconds
+   # reconnect 8: wait 22 seconds
+   # reconnect 9: wait 33 seconds
+   # reconnect x: etc.
+   #
+   # 在一个拥有约 600000 个主机的设置中, 这些设置将平均每秒重新连接约 100 次,
+   # 所有主机将在 60 秒内重新连接.
+   # recon_default: 100
+   # recon_max: 5000
+   # recon_randomize: False
+   #
+   #
+   # `loop_interval` 设置了在评估调度程序和运行清理任务之间 minion 等待的时间 ( 秒 ).
+   # 这在 minion 调度程序中默认为 1 秒.
+   loop_interval: 1
+
+   # 有些安装选择在缓存或返回程序中启动所有作业返回, 而放弃将结果发送回 master 服务器.
+   # 在这个工作流中, 作业通常使用 Salt CLI 中的 --async 执行,
+   # 然后通过检查 minion 或任何配置的返回者上的作业缓存来评估结果.
+   # 警告: 设置为 *False* 将 **禁止** 返回给 master.
+   pub_ret: True
+
+   ###### grains 设置 ################################################
+   # 使用此选项可以合并而不是重写 grains .这允许自定义 grains 定义字典 grains 的不同子值.
+   # 默认情况下, 此功能处于禁用状态, 将 `grains_deep_merge` 设置为 *True* 可以启用.
+   grains_deep_merge: False
+
+   # `grains_refresh_every` 设置允许 minion 定期检查自己的 grains, 看看它们是否发生了变化,
+   # 如果发生了变化, 就将新的 grains 告知 master.
+   # 此操作的成本适中, 因此应注意不要将此值设置得太低.
+   #
+   # 注意: 此值以 *分钟* 进行表达
+   #
+   # 默认值为10分钟是合理的
+   #
+   # 如果此值被设置为 0, 此项检查将被禁止.
+   grains_refresh_every: 1
+
+   # 在 minion 上缓存 grains. 默认禁止.
+   grains_cache: False
+
+   # 在 minion 上缓存渲染过的 pillar 数据. 默认禁止.
+   # 这可以会导致 'cachedir'/pillar 包含敏感数据, 应该相应地进行保护.
+   minion_pillar_cache: False
+
+   # grains 缓存过期时间, 以秒为单位.
+   # 如果缓存文件早于此秒数, 则将转储 grains 缓存并用新数据完全重新填充.
+   # 默认为 5 分钟. 如果未启用 `grains_cache`, 则不会有任何效果.
+   grains_cache_expiration: 300
+
+   ###### mine 设置相关 ##############################################
+   # 确定 Salt minion 是否应运行计划的 mine 更新.
+   # 默认为 *True*. 设置为 *False* 以禁用计划的 mine 更新
+   # ( 这实际上并没有将 mine 更新功能添加到 minion 的计划程序中 )
+   mine_enabled: True
+
+   # 确定计划的 mine 更新是否应附带作业缓存的作业返回.
+   # 默认为 *False*. 设置为 *True* 以将作业返回包含在作业缓存中以进行 mine 更新.
+   mine_return_job: False
+
+   # 可以通过 mine 工具运行的示例函数, 默认情况下不建立任何 mine 函数.
+   # 注意这些也可以在 minion 的 piilar 里定义.
+   mine_functions:
+     test.ping: []
+     network.ip_addrs:
+       interface: eth0
+       cidr: '10.0.0.0/8'
+       
+   # mine 更新间隔的分钟数
+   mine_interval: 60
+
+   # Windows 平台缺少 POSIX IPC, 必须依赖较慢的基于 TCP 的进程间通信.
+   # 在此类系统上, 将 `ipc_mode` 置为 *tcp*.
+   ipc_mode: ipc
+
+   # 当 ipc_mode 模式设置为 *tcp* 时, 覆盖 minion 使用的默认 tcp 端口.
+   tcp_pub_port: 4510
+   tcp_pull_port: 4511
+
+   # 传递非常大的事件会导致 minion 消耗大量内存.
+   # 此值调整 minion 事件总线上允许的最大消息大小. 该值以字节表示.
+   max_event_size: 1048576
+
+   # 当一个 minion 启动时, 它会在事件总线上发送一个通知,
+   # 并带有如下标记: `salt/minion/<minion_id>/start`.
+   # 出于历史原因, minion 还发送了一个类似的事件, 带有这样的事件标签: `minion_start`.
+   # 当有许多 minion 时, 这种复制会导致事件总线上出现大量混乱.
+   # 在 minion 配置中设置 `enable_legacy_startup_events: False`,
+   # 以确保只发送 `salt/minion/<minion_id>/start` 事件.
+   # 从 "Sodium" 开始, 这个选项默认为 *False*.
+   enable_legacy_startup_events: True
+
+   # 若要在连接 / 断开连接时检测失败的 master 节点和激发事件,
+   # 请将 `master_alive_interval` 设置为轮询 master 节点连接事件的秒数.
+   master_alive_interval: 30
+
+   # minion 可以包含来自其他文件的配置. 要启用此功能, 请将路径列表传递到此选项.
+   # 路径可以是相对的, 也可以是绝对的;
+   # 如果是相对的, 则认为它们相对于主 minion 配置文件所在的目录 ( 此文件 ).
+   # 路径可以使用 shell 样式的全局化.
+   # 如果传递给该选项的路径不匹配任何文件, 则 minion 将记录一条警告消息.
+   #
+   # 从其它路径包含一个配置文件
+   # include: /etc/salt/extra_config
+   #
+   # 从几个文件和目录包含配置
+   #include:
+   #  - /etc/salt/extra_config
+   #  - /etc/roles/webserver
+
+   # syndic minion 可以使用 `syndic_finger` 配置,
+   # 通过更高级别 master 的密钥指纹来验证它正在与正确的主机通话.
+   syndic_findger: ''

@@ -125,3 +125,20 @@
    # 在主机名不存在的情况下, 将域追加到主机名.
    # 这对于 socket.getfqdn() 实际上不产生 fqdn 的系统 ( 例如, solaris ) 很有用.
    append_domain:
+   # 暂时看不出来有什么作用, mark 下
+
+   # 可以在这里指定这个 minion 的自定义静态粒度 (grain),
+   # 并像所有其他粒度一样在 SLS 文件中使用.
+   # 本例设置了 4 个自定义粒度, 其中 "roles" 粒度有两个值可以匹配.
+   #grains:
+   #  roles:
+   #    - webserver
+   #    - memcache
+   #  deployment: datacenter4
+   #  cabinet: 13
+   #  cab_u: 14-15
+   #
+   # 缓存数据的去向.
+   # 此数据可能包含敏感数据, 因此应受到相应保护.
+   cachedir: /var/cache/salt/minion
+

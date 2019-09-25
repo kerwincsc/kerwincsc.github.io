@@ -40,3 +40,7 @@
 
 	  mysql> select SQL_CACHE * from T where ID=10;x
        
+- Oracle 迁移到 MySQL
+
+  Oracle 数据库的默认隔离级别是 "读提交", 因此对于一些从 Oracle 迁移到 MySQL 的应用,
+  为保证数据库隔离级别的一致, 一定要将 MySQL 的隔离级别设置为 "读提交"

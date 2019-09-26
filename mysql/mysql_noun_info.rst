@@ -33,7 +33,7 @@
 
 - MVCC
 
-  数据库的多版本并发控制
+  数据库的多版本并发控制 Multi-Version Concurrency Control
 
 - 两阶段提交
 

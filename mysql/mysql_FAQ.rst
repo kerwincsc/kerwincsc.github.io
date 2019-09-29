@@ -141,7 +141,7 @@
 全局锁
 ------
 
-- 如何加全局锁 ```Flush tables with read lock` (FTWRL)
+- 如何加全局锁 ``Flush tables with read lock`` (FTWRL)
 
 - 既然要全库只读, 为什么不使用 ``set global readonly=true`` 的方式
 
@@ -188,7 +188,7 @@
   **先放弃**. 之后开发人员或者 DBA 再通过重试命令重复这个过程。
 
   MariaDB 已经合并了 AliSQL 的这个功能,
-  所以这 两个开源分支[#1]_ 目前都支持 DDL **NOWAIT/WAIT N** 这个语法.
+  所以这 两个开源分支 [#1]_ 目前都支持 DDL **NOWAIT/WAIT N** 这个语法.
 
   .. code-block:: mysql
 

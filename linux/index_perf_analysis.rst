@@ -6,4 +6,4 @@
    :glob:
    :caption: 目录
 
-   ./optimization/*
+   ./perf_analysis/*

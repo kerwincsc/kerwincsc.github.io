@@ -58,7 +58,7 @@
   之后引擎就可以按照 innodb_io_capacity 定义的能力乘以 R% 来控制刷脏页的速度.
   如图所示:
 
-  .. image:: innodb_flush_dirty_policy.png
+  .. image:: images/innodb_flush_dirty_policy.png
      :alt: InnoDB 刷脏页速度策略
 
 为什么 MySQL 会抖一下

@@ -1,5 +1,5 @@
 ==============
- 更换 EPEL 源
+EPEL
 ==============
 
 #. ``sudo yum install -y epel-release``

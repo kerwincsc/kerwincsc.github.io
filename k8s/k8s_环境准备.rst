@@ -52,9 +52,8 @@
 
   .. code-block:: shell
 
-     $ systemctl daemon-reload
-     $ service docker restart
-
+     $ systemctl daemon-reload && systemctl restart docker
+     
 系统设置
 ========
 

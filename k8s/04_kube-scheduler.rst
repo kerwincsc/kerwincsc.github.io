@@ -38,4 +38,4 @@ kube-scheduler 负责分配调度 Pod 到集群内的节点上, 它监听 kube-a
 - 查看日志 ``journalctl -f -u kube-scheduler``
 
 
-- :doc:`配置说明<kube-scheduler_配置说明.rst>`
+- :doc:`配置说明<kube-scheduler_配置说明>`

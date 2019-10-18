@@ -46,7 +46,7 @@ etcd 就是它的数据中心. 生产环境中为了保证数据中心的高可�
       [Install]
       WantedBy=multi-user.target
 
-:doc:`配置说明<ETCD_配置说明.rst>`
+:doc:`配置说明<etcd_配置说明>`
 
 
 FAQ

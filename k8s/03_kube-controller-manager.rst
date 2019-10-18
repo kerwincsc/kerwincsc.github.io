@@ -1,6 +1,6 @@
-===================================
- 部署 ControllerManager ( 主节点 )
-===================================
+======================================
+ 03 部署 ControllerManager ( 主节点 )
+======================================
 
 简介
 ====
@@ -52,4 +52,4 @@ controller-manager, scheduler 和 apiserver 三者的功能紧密相关,
 
 - 检查日志 ``journalctl -f -u kube-controller-manager``
 
-- :doc:`配置说明<kube-controller-manager_配置说明.rst>`
+- :doc:`配置说明<kube-controller-manager_配置说明>`

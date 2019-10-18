@@ -15,3 +15,14 @@
 
   CentOS, Fedora 等用户在下载 docker-ce.repo 文件后,
   还需要将该文件中的 ``download.docker.com`` 地址换成 ``mirrors.ustc.edu.cn/docker-ce``
+
+
+  - 快速换源
+
+    .. code-block:: shell
+
+       yum-config-manager \
+         --add-repo \
+         https://mirrors.ustc.edu.cn/docker-ce/linux/centos/docker-ce.repo
+	 
+       sed -i 's!download.docker.com!mirrors.ustc.edu.cn/docker-ce!g' /etc/yum.repos.d/docker-ce.repo

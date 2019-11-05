@@ -53,6 +53,12 @@
 	 $ sudo modprobe br_netfilter
 	 $ sudo modprobe ip_vs
 
+- 1 node(s) had taints that the pod didn't tolerate
+  
+  默认 k8s 不允许往 master 节点装东西, 强行设置允许:
+
+  ``kubectl taint nodes --all node-role.kubernetes.io/master-``
+
 .. _rpmfind: http://rpmfind.net/
 
 .. _参考地址K8S: http://i.yungeio.com/articles/14

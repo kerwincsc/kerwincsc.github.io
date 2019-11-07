@@ -59,6 +59,20 @@
 
   ``kubectl taint nodes --all node-role.kubernetes.io/master-``
 
+- kubeadm join 192.168.11.70:6443 --token 01b3mt.qzadkfad3edi89up8nam4 报错
+
+  加入这个参数
+
+  --discovery-token-ca-cert-hash sha256:e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
+
+  shaXXXX 这个字符串是表示 master 上的 ca 证书的 hash 值
+
+  获取 master 上 ca 证书的 hash 值
+
+  .. code-block:: shell
+
+     openssl x509 -in /etc/kubernetes/pki/ca.crt -noout -pubkey | openssl rsa -pubin -outform DER 2>/dev/null | sha256sum | cut -d' ' -f1
+
 .. _rpmfind: http://rpmfind.net/
 
 .. _参考地址K8S: http://i.yungeio.com/articles/14

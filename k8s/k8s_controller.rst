@@ -44,3 +44,5 @@ DaemonSet
 
 #. 当有新的节点加入 Kubernetes 集群后, 该 Pod 会自动地在新节点上被创建出来;
    而当旧节点被删除后, 它上面的 Pod 也相应地会被回收掉;
+
+DaemonSet 的 " 过人之处 ", 其实就是依 靠Toleration 实现的;

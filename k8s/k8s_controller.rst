@@ -46,3 +46,6 @@ DaemonSet
    而当旧节点被删除后, 它上面的 Pod 也相应地会被回收掉;
 
 DaemonSet 的 " 过人之处 ", 其实就是依 靠Toleration 实现的;
+
+在 DaemonSet 上, 我们一般都应该加上 resources 字段, 来限制它的 CPU 和内存使用,
+防止它占用过多的宿主机资源

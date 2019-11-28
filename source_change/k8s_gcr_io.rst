@@ -1,6 +1,6 @@
-============
- k8s.gcr.io
-============
+================
+ k8s_k8s.gcr.io
+================
 
 对于 kubernetes 相关的镜像, 会使用到 k8s.gcr.io 开头的镜像
 
@@ -18,8 +18,9 @@ k8s.gcr.io 等价于 gcr.io/google-containers, 因此同上也可以使用中科
 ``docker pull gcr.mirrors.ustc.edu.cn/google-containers/xxx:yyy``
 
 Azure 中国镜像
-=============
+==============
 
 将地址替换为 gcr.azk8s.cn
 
 ``docker pull gcr.azk8s.cn/google-containers/xxx:yyy``
+

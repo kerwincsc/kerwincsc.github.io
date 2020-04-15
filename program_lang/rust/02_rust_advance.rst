@@ -59,8 +59,52 @@ opt-level 0-3 设置控制 Rust 会对代码进行何种程度的优化
 这通常用于 crate 根文件 ( 通常是 src/lib.rs )
 或模块的根文件为 crate 或模块整体提供文档;
 
-以 ``//!`` 或 ``/\*!`` 开头的 `内部文档注释` 仅能出现在项的前面;
+以 ``//!`` 或 ``/\*!`` 开头的 `内部文档注释` 仅能出现在项的前面 [#inner_doc]_;
+
+使用 pub use 导出合适的公有 API
+--------------------------------
+
+导出了公有的 API, 方便在手册中进行查找, 主要方便了使用 crate 的开发者;
+
+pub use 提供了解耦组织 crate 内部结构和与终端用户体现的灵活性
+
+Crates.io 账号
+-------------------
+
+#. 在 crates.io 上注册账号并获取一个 API token
+
+   查看位于 https://crates.io/me/ 的账户设置页面并获取 API token
+
+#. 使用 API token 运行 ``cargo login`` 命令
+
+   ``$ cargo login abcdefghijklmnopqrstuvwxyz012345``
+
+   命令会通知 Cargo 你的 API token 并将其储存在本地的 ~/.cargo/credentials 文件中
+
+crate 操作
+----------
+
+发布
+++++
+
+* 需要在 crate 的 Cargo.toml 文件的 [package] 部分
+  增加一些本 crate 的元信息 (metadata)
+
+* crate 需要一个唯一的名称;
+
+  修改 Cargo.toml 中 [package] 里的名称为你希望用于发布的名称
+
+* crate 用途的描述和用户可能在何种条款下使用该 crate 的 license
+
+  增加 description 和 license;
+
+  如果你希望使用不存在于 SPDX [#SPDX]_ 的 license,
+  则需要将 license 文本放入一个文件, 将该文件包含进项目中,
+  接着使用 **license-file** 来指定文件名而不是使用 license 字段;
 
 
-.. inner doc comments like this (starting with `//!` or `/\*!`)
-   can only appear before items
+.. rubric:: 备注
+	    
+.. [#inner_doc] inner doc comments like this (starting with **//!** or **/\*!**)
+		can only appear before items
+.. [#SPDX] Software Package Data Exchange

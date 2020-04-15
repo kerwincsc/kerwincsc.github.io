@@ -102,6 +102,66 @@ crate 操作
   则需要将 license 文本放入一个文件, 将该文件包含进项目中,
   接着使用 **license-file** 来指定文件名而不是使用 license 字段;
 
+* ``cargo publish``
+
+* 发布新版本
+
+  发布新版本时, 改变 Cargo.toml 中 version 所指定的值;
+
+撤回
+++++
+
+不能删除之前版本的 crate;
+
+可以阻止任何将来的项目将他们加入到依赖中;
+
+撤回某个版本会阻止新项目开始依赖此版本,
+不过所有现存此依赖的项目仍然能够下载和依赖这个版本;
+
+为了撤回一个 crate, 运行 cargo yank 并指定希望撤回的版本:
+
+.. code-block:: shell
+
+   $ cargo yank --vers 1.0.1
+
+可以撤销撤回操作, 并允许项目可以再次开始依赖某个版本,
+通过在命令上增加 **--undo**
+
+.. code-block:: shell
+
+   $ cargo yank --vers 1.0.1 --undo
+
+撤回 **并没有** 删除任何代码;
+
+工作空间
+--------
+
+工作空间只在根目录有一个 Cargo.lock, 而不是在每一个 crate 目录都有 Cargo.lock;
+
+- 依赖内部 crate
+
+  cargo 不假定工作空间中的Crates会相互依赖,
+  所以需要明确表明工作空间中 crate 的依赖关系
+
+  .. code-block:: shell
+
+     [dependencies]
+		  
+     add-one = { path = "../add-one" }
+
+- 依赖外部 crate
+
+  即使 **外部 crate** 被用于工作空间的某处, 也不能在其他 crate 中使用它,
+  除非也在他们的 Cargo.toml 中加入 **外部 crate**;
+
+  
+为了在非顶层目录运行二进制 crate,
+需要通过 **-p** 参数和包名称来运行 ``cargo run`` 指定工作空间中我们希望使用的包
+
+.. code-block:: shell
+
+   cargo run -p <二进制 crate 目录名>
+
 
 .. rubric:: 备注
 	    

@@ -108,6 +108,13 @@ crate 操作
 
   发布新版本时, 改变 Cargo.toml 中 version 所指定的值;
 
+* 如果向 crates.io 发布工作空间中的 crate,
+  每一个工作空间中的 crate 需要单独发布;
+
+  cargo publish 命令并没有 --all 或者 -p 参数,
+  所以必须进入每一个 crate 的目录并运行 cargo publish
+  来发布工作空间中的每一个 crate;
+
 撤回
 ++++
 
@@ -154,6 +161,8 @@ crate 操作
   即使 **外部 crate** 被用于工作空间的某处, 也不能在其他 crate 中使用它,
   除非也在他们的 Cargo.toml 中加入 **外部 crate**;
 
+- 为工作空间增加测试
+
   
 为了在非顶层目录运行二进制 crate,
 需要通过 **-p** 参数和包名称来运行 ``cargo run`` 指定工作空间中我们希望使用的包
@@ -162,9 +171,36 @@ crate 操作
 
    cargo run -p <二进制 crate 目录名>
 
+智能指针
+========
+
+- **指针** 是 **一个包含内存地址的变量** 的通用 `概念`;
+
+  最常见的指针是 **引用**;
+
+  引用是一类只借用数据的指针; # 区别
+
+- **智能指针** 是一类 **数据结构**, 表现类似指针, 但是拥有额外的元数据和功能;
+
+  `在大部分情况下`, 智能指针 **拥有** 他们指向的数据; # 区别
+
+- 智能指针 **通常使用结构体实现**
+
+  与常规结构体的区别: 其实现了 **Deref** [#Deref]_ 和 **Drop** [#Drop]_ trait
+
+
+
+智能指针类型
+------------
+
+- 引用计数 (reference counting) 智能指针 -> 允许数据有多个所有者
+
 
 .. rubric:: 备注
 	    
 .. [#inner_doc] inner doc comments like this (starting with **//!** or **/\*!**)
 		can only appear before items
 .. [#SPDX] Software Package Data Exchange
+.. [#Deref] Deref trait 允许智能指针结构体实例表现的像引用一样,
+	    这样就可以编写既用于引用, 又用于智能指针的代码;
+.. [#Drop] Drop trait 允许自定义当 **智能指针离开作用域时** 运行的代码;

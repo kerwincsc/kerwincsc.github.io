@@ -10,6 +10,15 @@
   - 命令 ``goto-line``
   - 快捷键 :kbd:`M-g g` 或 :kbd:`M-g M-g`
 
+- 打开文件到指定行或指定行和列
+
+  - emacs +LINE FILE
+
+    打开 FILE 文件并跳到 LINE 行
+
+  - emacs +LINE:COLUMN FILE
+
+    打开 FILE 文件并跳到 LINE 行 COLUMN 列
 
 文件浏览
 ========

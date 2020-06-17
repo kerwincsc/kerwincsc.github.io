@@ -120,13 +120,13 @@ zsh 的目录跳转更为智能, 你无需输入 cd, 直接输入路径即可.
   m=minutes,d=days(default)w=week,M=Month +n older than n,-n younger than,
   just n equal to' # N
 
-  - *(m0) 当天修改过的文件
+  - \*(m0) 当天修改过的文件
     
-  - *(^m0) 当天未修改过的文件
+  - \*(^m0) 当天未修改过的文件
 
-  - *(mh-3) 修改小于3小时的文件
+  - \*(mh-3) 修改小于3小时的文件
 
-  - *(mw+2) 修改超过两星期的文件
+  - \*(mw+2) 修改超过两星期的文件
                   
 * L 文件大小
 

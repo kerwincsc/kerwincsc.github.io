@@ -2,8 +2,62 @@
  ZSH 使用技巧
 ==============
 
- 叹号的用法
-============
+补全
+====
+
+以前杀进程是 ``ps aux | grep xxx`` 查进程的 PID, 然后 ``kill PID``.
+有了 zsh, 直接 ``kill xxx`` 然后按下 **tab** 键即可;
+
+别名
+====
+
+zsh 不仅支持普通 alias, 还支持针对文件类型的 alias.
+如进行以下配置配置
+
+.. code-block:: shell
+   :linenos:
+   :caption: .zshrc
+
+   alias -s gz='tar -xzvf'
+   alias -s tgz='tar -xzvf'
+   alias -s zip='unzip'
+   alias -s bz2='tar -xjvf'
+   alias -s php=vi
+   alias -s py=vi
+   alias -s rb=vi
+   alias -s html=vi
+   alias gcid="git log | head -1 | awk '{print substr(\$2,1,7)}' | pbcopy"
+
+配置完毕之后, 在 zsh 下直接输入 xxx.rb, 将自动用 vi 打开;
+直接输入xxx.tgz, 将直接按照 tar -xzvf 解压.
+
+最后一个 gcid 将当前 git 项目的第一个 commit 的 id 复制到系统剪切板
+( pbcopy 是 Mac 下的复制到系统剪切板命令, linux 请参考相应的发行版更改 ),
+在执行 rebase 的时候特别方便;
+
+跳转
+====
+
+zsh 的目录跳转更为智能, 你无需输入 cd, 直接输入路径即可.
+``..`` 表示后退一级目录,
+``../../`` 表示后退两级, 依次类推.( ``...`` 的作用和 ``../../`` 相同 )
+
+输入 ``d``, 将列出当前 session 访问过的所有目录, 再按提示的数字即可进入相应目录;
+
+.. code-block:: shell
+   :linenos:
+
+   [kerwin@work ~]$ d
+   0   ~
+   1   ~/Applications
+   2   ~/.proxychains
+   3   /opt/homebrew-cask/Caskroom
+
+   [kerwin@work ~]$ 1
+   [kerwin@work ~/Applications]$
+
+叹号的用法
+==========
 
   Shell 都支持
 

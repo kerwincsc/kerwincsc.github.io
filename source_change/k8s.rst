@@ -30,11 +30,3 @@
    deb http://mirrors.ustc.edu.cn/kubernetes/apt kubernetes-xenial main
    EOF
 
-   
-.. toctree::
-   :maxdepth: 2
-
-   docker_io.rst
-   k8s_gcr_io.rst
-   gcr_io.rst
-   quay_io.rst

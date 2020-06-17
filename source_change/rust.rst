@@ -11,10 +11,19 @@ RUSTUP配置和使用
 
 **RUSTUP_UPDATE_ROOT** ( 用于更新 rustup )
 
-::
+* 中科大
 
-   export RUSTUP_DIST_SERVER="https://mirrors.ustc.edu.cn/rust-static"
-   export RUSTUP_UPDATE_ROOT="https://mirrors.ustc.edu.cn/rust-static/rustup"
+  ::
+
+     export RUSTUP_DIST_SERVER="https://mirrors.ustc.edu.cn/rust-static"
+     export RUSTUP_UPDATE_ROOT="https://mirrors.ustc.edu.cn/rust-static/rustup"
+
+* rust 中文社区
+
+  ::
+
+     export RUSTUP_DIST_SERVER=http://mirrors.rustcc.cn
+     export RUSTUP_UPDATE_ROOT=http://mirrors.rustcc.cn/rustup
 
 官方的默认地址是 ::
 

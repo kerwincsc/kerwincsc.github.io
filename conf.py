@@ -20,7 +20,7 @@
 # -- Project information -----------------------------------------------------
 import os
 import sys
-sys.path.insert(0, os.path.abspath('/home/kerwin/github/sphinx/source'))
+sys.path.insert(0, os.path.abspath('/home/kerwin/notehub/source'))
 
 project = '零散备忘'
 copyright = '2019, kerwin'
@@ -61,7 +61,8 @@ templates_path = ['_templates']
 # You can specify multiple suffix as a list of string:
 #
 # source_suffix = ['.rst', '.md']
-source_suffix = '.rst'
+# source_suffix = '.rst' # before
+source_suffix = ['.rst', '.md']
 
 # The master toctree document.
 master_doc = 'index'
@@ -175,7 +176,9 @@ texinfo_documents = [
 # -- Options for intersphinx extension ---------------------------------------
 
 # Example configuration for intersphinx: refer to the Python standard library.
+### kerwin comment
 intersphinx_mapping = {'https://docs.python.org/3/': None}
+
 
 # -- Options for todo extension ----------------------------------------------
 

@@ -9,7 +9,8 @@
 .. toctree::
    :maxdepth: 4
    :glob:
-   :caption: Contents:
+   :caption: 目录:
+   :includehidden:
 
    sections/*
 

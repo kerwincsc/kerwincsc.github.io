@@ -75,6 +75,35 @@
      **name**  常规项, 标识名字用于 ref
      ========= =============================================
 
+- :index:`index<index_in_section>`
+
+  - 行内
+
+    .. rst:role:: index
+
+       ``- :index:`index<index_in_section>```
+
+       生成名叫 :rst:dir:`index` 的小节, 并在索引页 (index) 生成指向此 index 节
+       内容的叫 index_in_section 的索引项;
+
+  - 块级
+
+- **rst:role**
+
+  ::
+
+     .. rst:role:: index
+
+        输出 role -> index
+
+- **rst:dir**
+
+  ::
+
+     .. rst:dir:: .. index:: <entries>
+
+        输出 directive -> .. index:: <entries>
+
 .. rubric:: 备注
 .. [#] 
    number 是拉丁语 numero 的缩写形式, 第一个字母是 N, 最后一个字母是o, 所以缩写成 No.

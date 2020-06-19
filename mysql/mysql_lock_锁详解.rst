@@ -252,7 +252,7 @@ id = 32 和 id = 33 是没问题的,
 
   - 记录锁和记录锁冲突, Next-key 锁和 Next-key 锁冲突, 记录锁和 Next-key 锁冲突
 
-常见加锁场景分析
-================
 
-:ref:`Analysis_of_common_lock_expample`
+:ref:`常见加锁场景分析<Analysis_of_common_lock_expample>`
+=========================================================
+

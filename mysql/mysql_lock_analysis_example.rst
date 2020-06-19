@@ -13,6 +13,7 @@ Authord (（ 作者 ) 为二级非唯一索引, score ( 评分 ) 无索引;
 .. table::  books
    :widths: auto
    :align: center
+   :name: booktest
             
    ===== ===== ====== =====
    ID    ISBN  AUTHOR SCORE
@@ -23,9 +24,12 @@ Authord (（ 作者 ) 为二级非唯一索引, score ( 评分 ) 无索引;
 UPDATE 语句加锁分析
 ===================
 
+:ref:`哈<booktest>`
+
 先来分析 UPDATE 相关 SQL 在使用较为简单 where 从句情况下加锁情况.
 
 其中的分析原则也适用于 UPDATE, DELETE 和 SELECT ... FOR UPDATE 等当前读的语句.
+
 
 聚簇索引, 查询命中
 ==================

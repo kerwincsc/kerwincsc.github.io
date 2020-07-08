@@ -1,5 +1,6 @@
-角色
-====
+======
+ 角色
+======
 
 形如 **:rolename:`content`**
 
@@ -16,3 +17,13 @@
   效果如下: :abbr:`LIFO (last-in, first-out)`.
 
   即, 输出缩写内容, 如果括号中有此缩写的解释, 在鼠标指向时会显示其解释内容;
+
+.. rst:role:: file
+  
+   文件或目录的名称. 在内容中, 使用花括号表示 " 变量 " 部分, 例如:
+
+   .. code-block::
+
+      ... is installed in :file:`/usr/lib/python2.{x}/site-packages` ...
+
+   如下: ... is installed in :file:`/usr/lib/python2.{x}/site-packages` ...

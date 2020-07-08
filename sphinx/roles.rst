@@ -18,6 +18,19 @@
 
   即, 输出缩写内容, 如果括号中有此缩写的解释, 在鼠标指向时会显示其解释内容;
 
+
+.. 不推荐使用的 role
+   
+.. rst:role:: command
+
+   操作系统级命令的名称, 例如 rm;
+
+   .. code-block::
+
+      :command:`rm`
+
+   如下: :command:`rm`, 和加粗效果相同, 不推荐使用;
+
 .. rst:role:: file
   
    文件或目录的名称. 在内容中, 使用花括号表示 " 变量 " 部分, 例如:
@@ -27,3 +40,6 @@
       ... is installed in :file:`/usr/lib/python2.{x}/site-packages` ...
 
    如下: ... is installed in :file:`/usr/lib/python2.{x}/site-packages` ...
+
+   和两个反引号生成的效果相同, 不推荐使用;
+

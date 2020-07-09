@@ -27,3 +27,9 @@
 - 在指定模式中加载某个模块
 
   ``(add-hook 'rst-mode-hook 'electric-pair-mode)``
+
+- 换行自动缩进
+
+  .. code-block:: elisp
+
+     (global-set-key (kbd "RET") 'newline-and-indent)

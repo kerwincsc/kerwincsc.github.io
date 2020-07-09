@@ -22,12 +22,53 @@
 
 -------
 
-set
+- set
 
-setq
+  一次只能将一个 SYMPOL 设置为变量;
+
+  需要引用;
+
+- setq
+
+  可同时将多个 SYMPOL 设置为变量;
+  不需要引用;
+
+- setq-default
+
+  设置默认值
+
+- setq-local
+
+  设置 buffer 本地变量;
 
 defvar
 
-defconst
+- defconst
 
-defcustom
+  定义在 C 代码中的特殊形式 (special form);
+
+  定义常量
+
+  注: 即使是 defconst 定义的常量变量, 也是可以被改变的;
+
+- defcustom
+
+  自定义变量
+
+动态绑定与词法绑定
+
+- 如何启用词法绑定
+
+
+  #. 将如下的注释行作为 Emacs Lisp 文件的第一行
+    
+     .. code-block:: elisp
+    
+        ;;; -*- lexical-binding: t; -*-
+
+  #. 调用 add-file-local-variable-prop-line
+
+     .. code-block:: elisp
+
+        (add-file-local-variable-prop-line 'lexical-binding t)
+

@@ -104,3 +104,11 @@
   :kbd:`C-x {`, shrink-window-horizontally, 使分屏左右变小;
 
   :kbd:`C-x ^`, enlarge-window, 使分屏上下变大;
+
+信息查看
+========
+
+查看当前缓冲区的主模式
+----------------------
+
+:kbd:`c-h m` 信息里就有;

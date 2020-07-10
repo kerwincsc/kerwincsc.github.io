@@ -29,3 +29,21 @@
   .. code-block:: rust
 
      std::mem::size_of::<i32>()
+
+- 查看变量的类型信息
+
+  要使用 nightly 版, 是实验性的 API
+
+  .. code-block:: rust
+
+     #![feature(core_intrinsics)]
+     fn print_type_name<T>(_arg: &T) {
+         unsafe {
+             println!("{}", std::intrinsics::type_name::<T>())
+         }
+     }
+     
+     fn main() {
+         let ref x = 5_i32;
+         print_type_name(&x);
+     }

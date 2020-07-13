@@ -26,6 +26,12 @@
       
     - :kbd:`C-x )`
 
+  - 给宏命名
+
+    - :command:`kmacro-name-last-macro`
+
+    - :kbd:`C-x C-k n`
+
 - 执行
 
   - :kbd:`<F4>` (kmacro-end-or-call-macro)
@@ -65,7 +71,30 @@
   鼠标参与录制宏时可能出现问题
 
   
-键盘宏循环
+键盘宏环 (Ring)
+===============
+
+:kbd:`C-x C-k C-k` (kmacro-end-or-call-macro-repeat)
+
+     执行位于环首的键盘宏
+
+     执行此命令后, 可通过输入 `C-k` 多次重复此宏;
+     或通过以下命令切换要执行的宏;
+
+:kbd:`C-x C-k C-n` (kmacro-cycle-ring-next)
+
+     将宏环旋转至下一个宏 ( 先前定义的 )
+
+:kbd:`C-x C-k C-p` (kmacro-cycle-ring-previous)
+
+     将宏环旋转至上一个宏 ( 后来定义的 )
+
+进入宏环操作的状态均以 :kbd:`C-x C-k` 为前缀, 后可接
+`C-k` 执行宏, `c-n` 下一个宏, `C-p` 上一个宏,
+当前位于环首的宏将显示在回显区;
+无须多次重复 `C-x C-k`;
+
+宏相关变量
 ==========
 
-
+**kmacro-ring-max** 存储于宏环中的最大宏数量;

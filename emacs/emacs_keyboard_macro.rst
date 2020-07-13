@@ -94,6 +94,34 @@
 当前位于环首的宏将显示在回显区;
 无须多次重复 `C-x C-k`;
 
+键盘宏计数器
+============
+
+每个键盘宏都有与之相关联的计数器, 以 0 开始;
+正常情况下, 每调用一次宏, 当前的计数器就递增 1;
+
+主要用于键盘宏中批量生成指定格式的序号;
+
+:kbd:`F3` (kmacro-start-macro-or-insert-counter)
+
+     在宏定义时, 插入计数器值到当前 buffer
+
+:kbd:`C-x C-k C-c` (kmacro-set-counter)
+
+     设置计数器的值, 可以指定从某个值开始;
+
+:kbd:`C-x C-k C-i` (kmacro-insert-counter)
+
+     在当前 buffer 中插入计数器值
+
+:kbd:`C-x C-k C-a` (kmacro-add-counter)
+
+     将计数器的值加上指定值;
+
+:kbd:`C-x C-k C-f` (kmacro-set-format)
+
+     指定要插入的计数器的格式;
+
 宏相关变量
 ==========
 

@@ -47,3 +47,9 @@
          let ref x = 5_i32;
          print_type_name(&x);
      }
+
+- 宏展开
+
+  .. code-block:: rust
+
+     rustc -Z unstable-options --pretty=expanded temp.rs

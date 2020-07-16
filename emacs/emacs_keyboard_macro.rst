@@ -2,9 +2,8 @@
  键盘宏
 ========
 
-
- 基本用法
-==========
+基本用法
+========
 
 - 定义
 
@@ -201,7 +200,27 @@
 
   #. ``M-x insert-kbd-macro <RET> MACRONAME <RET>``
 
+编辑键盘宏
+==========
+
+:kbd:`C-x C-k C-e` (kmacro-edit-macro) 进入键盘宏编辑器, 编辑最近定义的宏
+
+:kbd:`C-x C-k e NAME <RET>` [#NAME]_ (edit-kbd-macro)
+
+   键入后回显区出现如下提示:
+
+   .. code-block:: elisp
+
+      Keyboard macro to edit (C-x e, <execute>, M-x view-lossage, or keys):
+
+   随后键入 **C-x e 或 <F4>** 均会进入最近宏宏编辑器,
+   键入 **keys** 会进入对应宏的宏编辑器,
+   键入 **M-x view-lossage** 会出错, 不知是为何;
+
+
 宏相关变量
 ==========
 
 **kmacro-ring-max** 存储于宏环中的最大宏数量;
+
+.. [#NAME] :kbd:`C-x C-k e NAME <RET>` 里的 **NAME** 其实改为 **KEYS** 更为合适;

@@ -2,3 +2,16 @@
  位置寄存器
 ============
 
+:kbd:`C-x r <SPC> R` (point-to-register)
+
+     将点的位置和当前 buffer 记录在寄存器 R 中
+
+:kbd:`C-x r j R`
+
+     跳到寄存器 R 中保存的 buffer 及位置;
+
+
+使用 ``C-x r j`` 跳向保存位置时, 如果保存在寄存器中的 buffer
+已被杀死, 此命令将尝试创建打开此文件的 buffer;
+
+     

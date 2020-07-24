@@ -1,14 +1,18 @@
-============
- 位置寄存器
-============
+==================
+ 缓冲区位置寄存器
+==================
 
-:kbd:`C-x r <SPC> R` (point-to-register)
+记录缓冲区的名称及光标位置的寄存器
 
-     将点的位置和当前 buffer 记录在寄存器 R 中
+- 创建
 
-:kbd:`C-x r j R`
+  :kbd:`C-x r <SPC> R` (point-to-register)
 
-     跳到寄存器 R 中保存的 buffer 及位置;
+       将点的位置和当前 buffer 记录在寄存器 R 中
+
+- 使用
+
+  :kbd:`C-x r j R` 跳到寄存器 R 中保存的 buffer 及位置;
 
 
 使用 ``C-x r j`` 跳向保存位置时, 如果保存在寄存器中的 buffer

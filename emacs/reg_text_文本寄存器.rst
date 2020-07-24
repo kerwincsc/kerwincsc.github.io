@@ -42,20 +42,3 @@
        从寄存器 R 中插入文本 ( 到本缓冲区 )
 
   :kbd:`C-u C-x r i R` 同上, 但是光标 / point 会出现在插入文本的最前方;
-       
-fg
-
-ab
-
-cd
-fg
-
-ab
-
-cd
-
-fg
-
-ab
-
-cd

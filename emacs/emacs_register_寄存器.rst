@@ -13,15 +13,15 @@
 
 **书签 | Bookmarks** 可记录文件和位置, 故也列入此处;
 
-:doc:`位置寄存器<postion_reg_位置寄存器>`
+:doc:`位置寄存器<reg_pos_buf_缓冲区位置寄存器>`
 
-:ref:`text_reg<文本寄存器>`
+:ref:`文本寄存器<reg_text_文本寄存器>`
 
-:ref:`rectangle_reg<矩形选区寄存器>`
+:ref:`矩形选区寄存器<reg_rec_矩形选区寄存器>`
 
-:ref:`conf_reg<配置寄存器>`
+:ref:`窗口配置寄存器<reg_conf_窗口配置寄存器>`
 
-:ref:`num_reg<数字寄存器>`
+:ref:`数字寄存器<reg_num_数字寄存器>`
 
 操作
 ====

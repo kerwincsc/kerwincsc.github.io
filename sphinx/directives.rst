@@ -75,6 +75,28 @@
      **name**  常规项, 标识名字用于 ref
      ========= =============================================
 
+.. rst:role:: csv-table
+
+   .. csv-table:: csv-table 选项
+      :header: 可选项, 说明, 备注
+      :widths: 10, 60, 30
+
+      widths, "宽度值 [, 宽度值 ] | auto",
+      width, 强行指定行的宽度或指定为当前行宽度的百分比,
+      header-rows, 数字值; 用作行标题的行数; 默认是 0,
+      stub-columns, 数字值; 用作列标题的列数; 默认是 0,
+      header, CSV 格式的数据, "比如 **标题1, 标题2, 标题3** "
+      file, 字符串, 不会使用
+      url, 去除了空白符的字符串; 指向 CSV 数据文件的互联网 URL引用, 不会使用
+      encoding, 文本编码名; 外部 ( file/url ) CSV 数据的文本编码; 默认是文件编码
+      delim, 单字符 | "tab" | "space"; 默认是 **逗号**,
+      quote, 单字符; 用于引用包含分隔符或以引号字符开头的元素; 默认是 **"**,
+      keepspace, flag; 将紧跟在分隔符后面的空白视为重要; 默认情况是忽略这些空白,
+      escape, 单字符; 用于转义分隔符或引用; 默认值是将字符加倍, 不会使用
+      align, "left, center, right",
+      "name, class", 常规项,
+   
+
 - :index:`index<index_in_section>`
 
   - 行内

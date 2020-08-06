@@ -575,7 +575,7 @@ shell 的执行顺序:
    
    **HISTFILESIZE**
    
-   **HISTTIMEFORMAT**
+   **HISTTIMEFORMAT** :doc:`history记录操作时间<../history>`
 
 #. shell 选项
    histappend

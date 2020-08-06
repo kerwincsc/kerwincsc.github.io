@@ -1,4 +1,4 @@
-指令参数记录
+指令
 ======================================================================
 
 - code-block
@@ -95,6 +95,24 @@
       escape, 单字符; 用于转义分隔符或引用; 默认值是将字符加倍, 不会使用
       align, "left, center, right",
       "name, class", 常规项,
+
+
+.. rst:role:: toctree
+
+   .. csv-table:: toctree 选项
+      :name: toctree-option-table
+      :header: 选项, 说明
+
+      caption, "给 ( 图片, 照片等 ) 加说明文字"
+      name, 提供 可以通过 ref 使用引用的隐式目标名
+      titlesonly, "只想显示树中文档的标题, 而不是同一级别的其他标题"
+      glob, 想要模糊匹配的, 就加上
+      self, "代表包含 toctree 指令的文档. 如果要从toctree生成站点地图, 将非常用"
+      reversed, 反转列表中条目的顺序
+      hidden, "仍将通知 Sphinx 文档层次结构, 但不会在指令的位置插入文档中的链接 [#hidden]_"
+      includehidden, 如果只想拥有一个顶级 toctree 并隐藏所有其他较低级别的 toctree
+      numbered, "想在 HTML 输出中有节号, 请给顶级的 toctree 一个 numbered 选项"
+      
    
 
 - :index:`index<index_in_section>`
@@ -126,6 +144,9 @@
 
         输出 directive -> .. index:: <entries>
 
+
+
+
 .. rubric:: 备注
-.. [#] 
-   number 是拉丁语 numero 的缩写形式, 第一个字母是 N, 最后一个字母是o, 所以缩写成 No.
+.. [#]  number 是拉丁语 numero 的缩写形式, 第一个字母是 N, 最后一个字母是o, 所以缩写成 No.
+.. [#hidden] 如果打算自己, 以不同的样式或 HTML 侧边栏插入这些链接, 这是有意义的

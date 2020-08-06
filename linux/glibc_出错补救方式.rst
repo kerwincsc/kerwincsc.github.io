@@ -3,10 +3,15 @@
 ====================
 
 尝试安装 Starship 时发现需要提高 openssl 库的版本;
+
 搞定 openssl 后发现需要 glibc-2.18 以上的库文件;
+
 编译完成 glibc 并把新的库文件的路径加入 ldconfig 后,
+
 发现仍然提示需要 glibc-2.18 以上的库文件;
+
 尝试将 **libc.so.6 -> libc-2.17.so** 更改为 **libc.so.6 -> libc-2.18.so**,
+
 执行 ls 命令时出错
 
 .. code-block:: shell

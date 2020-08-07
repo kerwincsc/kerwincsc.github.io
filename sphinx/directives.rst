@@ -106,8 +106,49 @@
       includehidden, 如果只想拥有一个顶级 toctree 并隐藏所有其他较低级别的 toctree
       numbered, "想在 HTML 输出中有节号, 请给顶级的 toctree 一个 numbered 选项"
       
-   
+.. rst:directive:: glossary
 
+   该指令 **必须包含带有 term 和 term 的释义的** reST 定义列表标记.
+   然后,  这些定义可以用 term 角色引用;
+
+   .. code-block::
+
+      .. glossary::
+
+         environment
+            A structure where information about all documents under the root is
+            saved, and used for cross-referencing.  The environment is pickled
+            after the parsing stage, so that successive runs only need to read
+            and parse new and changed documents.
+
+         source directory
+            The directory which, including its subdirectories, contains all
+            source files for one Sphinx project.
+
+   与常规定义列表相比, 每个条目允许多个术语, 并且允许使用内联标记. 您可以链接到所有 term;
+
+   .. code-block::
+
+      .. glossary::
+
+         term 1
+         term 2
+            Definition of both terms.
+
+   术语表排序时, **第一个术语确定排序顺序**
+
+   如果要为一般索引条目指定 **分组键**, 可以将键设置为 **term : key**
+
+   .. code-block::
+
+      .. glossary::
+
+         term 1 : A
+         term 2 : B
+            Definition of both terms.
+
+   可以为 glossary 指令提供一个 **:sorted:** 标志, 该标志将按字母顺序自动对条目进行排序;
+      
 - :index:`index<index_in_section>`
 
   - 行内

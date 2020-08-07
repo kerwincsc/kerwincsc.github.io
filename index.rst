@@ -13,6 +13,7 @@
    :includehidden:
 
    sections/*
+   glossary
 
 Indices and tables
 ==================

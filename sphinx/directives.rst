@@ -109,7 +109,7 @@
 .. rst:directive:: glossary
 
    该指令 **必须包含带有 term 和 term 的释义的** reST 定义列表标记.
-   然后,  这些定义可以用 term 角色引用;
+   然后,  这些定义可以用 :any:`term` 角色引用;
 
    .. code-block::
 

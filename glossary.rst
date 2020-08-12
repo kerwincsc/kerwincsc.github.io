@@ -7,5 +7,5 @@
 .. glossary::
 
    BPF
-   Berkeley Packet Filter
-   伯克利封包过滤器
+     Berkeley Packet Filter
+     伯克利封包过滤器

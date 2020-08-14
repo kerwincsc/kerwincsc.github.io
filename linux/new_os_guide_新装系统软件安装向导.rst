@@ -30,25 +30,18 @@
 
      ``curl https://sh.rustup.rs -sSf | sh -s``
 
-   - 更新镜像源
-
-     .. code-block:: bash
-
-        export RUSTUP_DIST_SERVER="https://mirrors.ustc.edu.cn/rust-static"
-        export RUSTUP_UPDATE_ROOT="https://mirrors.ustc.edu.cn/rust-static/rustup"
+   - :ref:`更新镜像源<rust_mirrors_ustc>`
 
    - 更新路径
 
      export PATH=/root/.cargo/bin/:$PATH
 
-#. 安装编译工具
+#. 安装编译工具及依赖
 
    - dnf install gcc -y
 
-#. 安装 openssl 依赖
-
    - dnf install openssl-devel -y
 
-#. 安装 rust 版的 :addr:`tldr(too long, don't read)`: tealdeer
+#. 安装 rust 版的 :abbr:`tldr(too long, don't read)`: tealdeer
 
    cargo install tealdeer

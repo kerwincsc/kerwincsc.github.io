@@ -42,6 +42,23 @@
 
    - dnf install openssl-devel -y
 
-#. 安装 rust 版的 :abbr:`tldr(too long, don't read)`: tealdeer
+#. 使用 cargo 安装由 rust 编写的工具
 
-   cargo install tealdeer
+   - 安装 rust 版的 :abbr:`tldr(too long, don't read)`: tealdeer
+
+      cargo install tealdeer
+
+   - cargo install cargo-edit
+   
+   - cargo install ripgrep
+
+   - cargo install fd-find
+
+   - 可选的 rust 小工具
+
+     - bandwhich 监控网络使用情况
+
+     - zoxide 更加高效的 cd;
+
+     - du-dust 显示磁盘空间使用情况, 非常直观
+

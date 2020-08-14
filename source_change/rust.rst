@@ -11,6 +11,8 @@ RUSTUP配置和使用
 
 **RUSTUP_UPDATE_ROOT** ( 用于更新 rustup )
 
+.. _rust_mirrors_ustc:
+
 * 中科大
 
   ::

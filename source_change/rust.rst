@@ -17,15 +17,15 @@ RUSTUP配置和使用
 
   ::
 
-     export RUSTUP_DIST_SERVER="https://mirrors.ustc.edu.cn/rust-static"
-     export RUSTUP_UPDATE_ROOT="https://mirrors.ustc.edu.cn/rust-static/rustup"
+    echo 'export RUSTUP_DIST_SERVER="https://mirrors.ustc.edu.cn/rust-static"' >> ~/.zshrc
+    echo 'export RUSTUP_UPDATE_ROOT="https://mirrors.ustc.edu.cn/rust-static/rustup"' >> ~/.zshrc
 
 * rust 中文社区
 
   ::
 
-     export RUSTUP_DIST_SERVER=http://mirrors.rustcc.cn
-     export RUSTUP_UPDATE_ROOT=http://mirrors.rustcc.cn/rustup
+     echo 'export RUSTUP_DIST_SERVER="http://mirrors.rustcc.cn"' >> ~/.zshrc
+     echo 'export RUSTUP_UPDATE_ROOT="http://mirrors.rustcc.cn/rustup"' ~/.zshrc
 
 官方的默认地址是 ::
 

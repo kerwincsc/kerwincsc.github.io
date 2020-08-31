@@ -26,10 +26,10 @@
 :kbd:`M-x bookmark-save`
      将所有当前书签值保存进默认的书签文件中, 即 **~/.emacs.d/bookmarks**
 
-如果把 ``bookmark-save-flag` 设为 1, 即使 Emacs 崩溃, 设定的书签也能保存下来;
+如果把 ``bookmark-save-flag`` 设为 1, 即使 Emacs 崩溃, 设定的书签也能保存下来;
 如果该值设为 nil, 则需要显式调用书签保存命令才能保存书签
 
-变量 ``bookmark-default-file` 指定了保存书签的默认文件;
+变量 ``bookmark-default-file`` 指定了保存书签的默认文件;
 
 书签位置值与周围的上下文一起保存, 所以 ``bookmark-jump`` 能够找到合适的位置,
 即使文件已经做了轻微的修改;

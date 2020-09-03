@@ -1,6 +1,6 @@
-============================================================
-将emacs作为服务启动
-============================================================
+=====================
+ 将emacs作为服务启动
+=====================
 
 以后台方式启动emacs ::
 
@@ -11,10 +11,44 @@
 
 
 作为 Linux 服务启动
---------------------------------------------------
+===================
+
+Centos8
+-------
+
+Emacs Version: 27.1
+
+复制 **emacs.service** 到 ``~/.config/systemd/user/`` 下;
+
+并将启动脚本修改为如下:
+
+.. code-block:: shell
+
+   [Unit]
+   Description=Emacs text editor
+   Documentation=info:emacs man:emacs(1) https://gnu.org/software/emacs/
+   # 此项不是必须
+   After=sshd.service
+
+   [Service]
+   # notify -> forking
+   Type=forking
+   # --fg-daemon -> --bg-daemon
+   ExecStart=/usr/local/bin/emacs --bg-daemon
+   ExecStop=/usr/local/bin/emacsclient --eval "(kill-emacs)"
+   # The location of the SSH auth socket varies by distribution, and some
+   # set it from PAM, so don't override by default.
+   # Environment=SSH_AUTH_SOCK=%t/keyring/ssh
+   Restart=on-failure
+
+   [Install]
+   WantedBy=default.target
+
+运行 ``systemctl --user start emacs`` 就可使用 ``emacsclient -nw``
+直接连接 server 了
 
 Centos7
-########################################
+-------
 
 systemctl启动脚本 ::
 
@@ -95,7 +129,7 @@ systemctl启动脚本 ::
   esac
 
 FAQ
-########################################
+---
 
 #. *.emacs* 配置文件没有被加载:
    像上面所说的进行配置, ``emacs --daemon`` 并不会加载我们的配置文件;
@@ -112,7 +146,7 @@ FAQ
 
 
 作为 wins 服务启动
-------------------------------------------------------------
+==================
 
 在任务计划中添加执行 ``runemacs.exe --daemon`` 的项;
 :download:`下载并导入到计划任务中<./download/打开emacs daemon模式.xml>`

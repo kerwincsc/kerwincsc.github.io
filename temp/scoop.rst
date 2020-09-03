@@ -8,7 +8,7 @@
 
 在 powershell 里运行
 
-.. code-block:: powershell
+.. code-block:: shell
 
    # 这里最好将 extras 改为 extras-in-gitee
    # 当你发现某些软件无法更新时, 就会发现自己用的是 gitee 的源

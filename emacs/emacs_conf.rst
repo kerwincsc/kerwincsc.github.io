@@ -10,3 +10,4 @@
      (setq indent-tabs-mode nil)
 
 
+fancy-splash-image 修改启动画面的图片

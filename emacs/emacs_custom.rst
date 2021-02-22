@@ -33,3 +33,27 @@
   .. code-block:: elisp
 
      (global-set-key (kbd "RET") 'newline-and-indent)
+
+- 设置tab缩进
+
+  .. code-block:: shell
+
+     ;; 设置 tab 缩进由 4 个空格代替, 并关闭 tab 缩进 mode
+     (setq default-tab-width 4)
+     (setq indent-tabs-mode nil)
+
+- 字符编码 utf8
+
+  .. code-block:: elisp
+
+     (set-language-environment "UTF-8")
+     (set-terminal-coding-system 'utf-8)
+     (set-keyboard-coding-system 'utf-8)
+     (set-clipboard-coding-system 'utf-8)
+     (set-buffer-file-coding-system 'utf-8)
+     (set-selection-coding-system 'utf-8)
+     (modify-coding-system-alist 'process "*" 'utf-8)
+  
+
+
+fancy-splash-image 修改启动画面的图片

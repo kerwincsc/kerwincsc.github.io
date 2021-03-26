@@ -1,6 +1,6 @@
-==============
- ZSH 使用技巧
-==============
+=====
+ ZSH
+=====
 
 补全
 ====
@@ -141,3 +141,12 @@ zsh 的目录跳转更为智能, 你无需输入 cd, 直接输入路径即可.
 
    C-x C-e    用默认的文本编辑器编辑命令
    M-.        倒序一次遍历命令的最后一个参数
+
+安装部署
+========
+
+`zsh 最新版`_
+
+编译参数: ``./configure --prefix=/usr/local/zsh/ --enable-zsh-mem --enable-pcre --enable-cap --enable-multibyte --enable-unicode9 --enable-libc-musl  --disable-gdbm``
+
+.. zsh 最新版: http://zsh.sourceforge.net/Arc/source.html

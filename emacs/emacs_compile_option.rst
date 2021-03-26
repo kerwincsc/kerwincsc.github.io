@@ -4,7 +4,7 @@
 
 - 编译命令
 
-  ./configure -prefix=/usr/local/ --with-mailutils --with-sound=no --with-lcms2 --without-selinux
+  ``./configure --prefix=/usr/local/emacs --with-mailutils --with-sound=no --without-selinux  --with-libsystemd --with-json``
 
 - configure 结果
 

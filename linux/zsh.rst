@@ -164,7 +164,7 @@ zsh 的目录跳转更为智能, 你无需输入 cd, 直接输入路径即可.
 
 编译参数: ``./configure --prefix=/usr/local/zsh/ --enable-zsh-mem --enable-pcre --enable-cap --enable-multibyte --enable-unicode9 --enable-libc-musl  --disable-gdbm``
 
-.. zsh 最新版: http://zsh.sourceforge.net/Arc/source.html
+.. _zsh 最新版: http://zsh.sourceforge.net/Arc/source.html
 
 常见问题
 ========
@@ -179,13 +179,13 @@ zsh 的目录跳转更为智能, 你无需输入 cd, 直接输入路径即可.
 
     - 将 zsh 软链接到 **PATH** 路径中, 如 **/usr/bin/**;
 
-      - 注释掉如下部分
+    - 注释掉如下部分
+    
+      .. code-block::
 
-	.. code-block::
-
-	   #  if command -v zsh >/dev/null 2>&1; then
-	   #    printf "${YELLOW}Zsh is not installed!${NORMAL} Please install zsh first!\n"
-	   #    exit
-	   #  fi
+	 #  if command -v zsh >/dev/null 2>&1; then
+	 #    printf "${YELLOW}Zsh is not installed!${NORMAL} Please install zsh first!\n"
+	 #    exit
+	 #  fi
 
        

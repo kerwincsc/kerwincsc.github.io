@@ -10,6 +10,7 @@
 #. 修改 ``.zshrc``.
    在终端下输入 ``vi ~/.zshrc``
    或者使用其他你喜欢的编辑器编辑 ~/.zshrc 在文件内容末端添加:
+
    .. code-block:: shell
 		   
       export LC_ALL=en_US.UTF-8

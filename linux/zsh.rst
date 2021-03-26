@@ -2,6 +2,21 @@
  ZSH
 =====
 
+乱码
+====
+
+表现为 zsh 命令行输入中文正常, vi, emacs 等编辑器内输入中文异常;
+
+#. 修改 ``.zshrc``.
+   在终端下输入 ``vi ~/.zshrc``
+   或者使用其他你喜欢的编辑器编辑 ~/.zshrc 在文件内容末端添加:
+   .. code-block:: shell
+		   
+      export LC_ALL=en_US.UTF-8
+      export LANG=en_US.UTF-8
+      
+   接着重启一下终端, 或者输入 ``source ~/.zshrc``, 就 OK 了
+
 补全
 ====
 

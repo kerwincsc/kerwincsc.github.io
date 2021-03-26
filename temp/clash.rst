@@ -59,6 +59,8 @@
 
 	export ALL_PROXY="socks5://127.0.0.1:7891"
 	export all_proxy="socks5://127.0.0.1:7891"
+	# 或
+	export ALL_PROXY="socks5://127.0.0.1:7891" && export all_proxy="socks5://127.0.0.1:7891"
 
      检查代理是否设置成功: ``curl https://ip.gs``
 
@@ -68,6 +70,8 @@
 
 	unset ALL_PROXY
 	unset all_proxy
+	# 或
+	unset ALL_PROXY && unset all_proxy
    
 	 
 .. _此处: https://github.com/Dreamacro/clash

@@ -2,6 +2,9 @@
  NetworkManger 网络管理工具
 ============================
 
+NetworkManager 操作的对应的 ifcfg-eth0 网卡文件,
+故修改后要重启网络以生效 ``systemctl restart network``
+
 - **connection.autoconnect** 控制的是网卡配置文件的 **ONBOOT** 属性
 
   - yes ``nmcli connection modify <eth0> connection.autoconnect yes``

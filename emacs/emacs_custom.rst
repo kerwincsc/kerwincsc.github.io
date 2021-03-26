@@ -42,6 +42,8 @@
      (setq default-tab-width 4)
      (setq indent-tabs-mode nil)
 
+- 禁止自动备份 ``(setq make-backup-files nil)``
+
 - 字符编码 utf8
 
   .. code-block:: elisp

@@ -25,3 +25,8 @@
      Does Emacs use -lsystemd?                               yes
      # dnf/yum install jansson-devel
      Does Emacs use -ljansson?                               yes
+
+- 不建议添加的编译选项
+
+  **--enalbe-profiling** 这个选项打开后, 编译生成的 emacs 进程在被关闭后,
+  会在当前目录生成 gmon.out 文件, 用于 debug emacs;

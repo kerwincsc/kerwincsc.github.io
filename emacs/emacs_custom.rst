@@ -56,6 +56,14 @@
      (set-selection-coding-system 'utf-8)
      (modify-coding-system-alist 'process "*" 'utf-8)
   
+- 快捷键设定
 
+  - 全局快捷键
+
+    ``(global-set-key (kbd "键") #'一个命令)``
+
+  - 指定模式快捷键
+
+    ``(define-key '某个mode-map (kdb "键") #'一个命令)``
 
 fancy-splash-image 修改启动画面的图片

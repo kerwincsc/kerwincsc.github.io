@@ -194,3 +194,5 @@ todo_include_todos = True
 #   'da', 'de', 'en', 'es', 'fi', 'fr', 'hu', 'it', 'ja'
 #   'nl', 'no', 'pt', 'ro', 'ru', 'sv', 'tr', 'zh'
 html_search_language = 'zh'
+
+html_favicon = 'favicon.ico'

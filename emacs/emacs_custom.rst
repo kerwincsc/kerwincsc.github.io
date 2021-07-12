@@ -66,4 +66,19 @@
 
     ``(define-key '某个mode-map (kdb "键") #'一个命令)``
 
+手动安装 use-package 或在 package-selected-packages 中添加要安装的包,
+并使用 ``package-install-selected-packages``
+
+- 安装 ivy
+
+  - 在 package-selected-packages 中添加 ivy
+
+  .. code-block:: elisp
+
+     (use-package ivy
+      :ensure t
+      :diminish ivy-mode
+      :hook (after-init . ivy-mode))
+
+
 fancy-splash-image 修改启动画面的图片

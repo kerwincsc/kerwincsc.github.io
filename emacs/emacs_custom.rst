@@ -2,6 +2,45 @@
  Emacs 自定义
 ==============
 
+- 配置示例
+
+  .. code-block:: elisp
+
+     ;; 用于 linux 命令行模式的配置文件
+     (setq package-archives '(("gnu" . "https://elpa.emacs-china.org/gnu/")
+                              ("melpa" . "https://elpa.emacs-china.org/melpa/")
+			      ("org" . "https://elpa.emacs-china.org/org/")))
+     (package-initialize)
+     
+     (set-keyboard-coding-system 'utf-8)
+     (set-clipboard-coding-system 'utf-8)
+     (set-terminal-coding-system 'utf-8)
+     (set-buffer-file-coding-system 'utf-8)
+     (set-selection-coding-system 'utf-8)
+     (modify-coding-system-alist 'process "*" 'utf-8)
+     (setq default-process-coding-system '(utf-8 . utf-8))
+     (setq-default pathname-coding-system 'utf-8)
+     
+     (setq make-backup-files nil)
+     
+     (custom-set-variables
+      ;; custom-set-variables was added by Custom.
+      ;; If you edit it by hand, you could mess it up, so be careful.
+      ;; Your init file should contain only one such instance.
+      ;; If there is more than one, they won't work right.
+      '(package-selected-packages '(use-package ivy magit highlight-parentheses)))
+     (custom-set-faces
+      ;; custom-set-faces was added by Custom.
+      ;; If you edit it by hand, you could mess it up, so be careful.
+      ;; Your init file should contain only one such instance.
+      ;; If there is more than one, they won't work right.
+      )
+     
+     (use-package ivy
+     :ensure t
+     :diminish ivy-mode
+     :hook (after-init . ivy-mode))
+
 - 自动匹配括号
 
   ``M-x package-list-packages RET highlight-parentheses``

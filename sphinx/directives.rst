@@ -86,7 +86,7 @@
       quote, 单字符; 用于引用包含分隔符或以引号字符开头的元素; 默认是 **"**,
       keepspace, flag; 将紧跟在分隔符后面的空白视为重要; 默认情况是忽略这些空白,
       escape, 单字符; 用于转义分隔符或引用; 默认值是将字符加倍, 不会使用
-      align, "left, center, right",
+      align, "left, center, right", 将表格整体居中而不是单元格内容居中
       "name, class", 常规项,
 
 
